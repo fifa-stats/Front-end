@@ -25,11 +25,13 @@ const codedPlayer = {
     workRate: 'Medium/ Medium',
 };
 
+const fakeDataSource = {'158023': codedPlayer};
 
-const PlayerView = () => {
+
+const PlayerView = props => {
     const [player, setPlayer] = useState({});
 
-    useEffect(() => setPlayer(codedPlayer), []);
+    useEffect(() => setPlayer(fakeDataSource[props.match.params.id]), []);
 
     return (
         <div className="player-view">
