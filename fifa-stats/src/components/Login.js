@@ -2,7 +2,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {login} from '../actions';
-// import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import styled from 'styled-components';
+
+const LogPage = styled.div`
+width: 100%;
+height: 100%;
+background: 
+  url('https://i.imgur.com/aJiApGC.jpg')
+    no-repeat fixed center;
+background-size: auto 100%;
+display: flex;
+flex-flow: column wrap;
+justify-content: center;
+align-items: center;
+color: black;
+`
 
 
 class Login extends React.Component {
@@ -16,8 +31,10 @@ class Login extends React.Component {
     //function to type in username and password
     handleChanges = e => {
         this.setState({
+           credentials: {
             ...this.state.credentials,
             [e.target.name]: e.target.value
+           }
         })
     }
 
@@ -29,7 +46,7 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="login-page">
+            <LogPage>
 
                 <h1>FIFA STATS </h1>
 
@@ -38,36 +55,30 @@ class Login extends React.Component {
                  </div>
 
                 <div className="login-box">
-                    <h2>Log In Here</h2>
-                    <form onSubmit={this.userLogin}>
-                        <input 
-                        type="text"
-                        name="email"
-                        value={this.state.credentials.email}
-                        onChange={this.handleChange}
-                        placeholder="User Email"
-                        />
-                         <input 
-                          type="text"
-                          name="password"
-                          value={this.state.credentials.password}
-                          onChange={this.handleChange}
-                          placeholder="User Password"
-                        />
-                        <button className="login-btn">Log In</button>
-                    </form>
-        {/* <Form>
-        <FormGroup>
-          <Input type="email" name="email"  placeholder="User Email" />
-        </FormGroup>
-        <FormGroup>
-          <Input type="password" name="password" placeholder="User Password" />
-        </FormGroup>
-       
-        <Button>Submit</Button>
-      </Form> */}
+                    
+                        <Form>
+                            <FormGroup>
+                            <Input 
+                            type="text" 
+                            name="email" 
+                            value={this.state.credentials.email} 
+                            placeholder="User Email" 
+                            onChange={this.handleChanges}
+                            />
+                            </FormGroup>
+                            <FormGroup>
+                            <Input 
+                            type="text" 
+                            name="password"
+                            value={this.state.credentials.password} 
+                            placeholder="User Password" 
+                            onChange={this.handleChanges}
+                            />
+                            </FormGroup>
+                            <Button>Log In</Button>
+                        </Form>
                 </div>
-            </div>
+            </LogPage>
         )
     }
 }
