@@ -5,7 +5,8 @@ LOGIN_SUCCESS,
 const initialState = {
     stats: [],
     loggingIn: false,
-    err: null
+    err: null,
+    token: localStorage.getItem('token')
 };
 
 
@@ -17,6 +18,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loggingIn: true,
             }
+        case LOGIN_SUCCESS: {
+            return {
+                ...state,
+                loggingIn: false,
+                token: action.payload
+            }
+        }
         default:
             return state;
     }
