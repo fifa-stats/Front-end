@@ -14,7 +14,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const  login = creds => dispatch => {
     dispatch({type: LOGIN_START});
         return axios
-                .post(url, creds)
+                .post(`${url}/login`, creds)
                 .then(res => {
                     console.log(res);
                     //storage set item token

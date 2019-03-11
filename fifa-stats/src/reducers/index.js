@@ -1,4 +1,7 @@
-
+import {
+LOGIN_START,
+LOGIN_SUCCESS,
+} from  '../actions/loginactions';
 const initialState = {
     stats: [],
     loggingIn: false,
@@ -9,8 +12,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case LOGIN_START:
+            return {
+                ...state,
+                loggingIn: true,
+            }
         default:
-        return state;
+            return state;
     }
 }
 export default reducer;
