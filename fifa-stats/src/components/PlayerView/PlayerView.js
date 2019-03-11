@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const player = {
+import './Player.css';
+import PlayerHeader from './PlayerHeader';
+
+const codedPlayer = {
     row: 1,
     id: 158023,
     name: 'L. Messi',
@@ -24,14 +27,13 @@ const player = {
 
 
 const PlayerView = () => {
+    const [player, setPlayer] = useState(codedPlayer);
+
     return (
         <>
-            <div className="player-header">
-                <h2 className="player-name">{player.name}</h2>
-                <p className="player-rank">{player.overall}</p>
-            </div>
+            <PlayerHeader player={player} />
             <div>
-                <img src={player.photo} alt={`Photo of ${player.name}`} />
+                <h3>More Content Here!</h3>
             </div>
         </>
     );
