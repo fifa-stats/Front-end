@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './Player.css';
 import PlayerHeader from './PlayerHeader';
@@ -27,15 +27,17 @@ const codedPlayer = {
 
 
 const PlayerView = () => {
-    const [player, setPlayer] = useState(codedPlayer);
+    const [player, setPlayer] = useState({});
+
+    useEffect(() => setPlayer(codedPlayer), []);
 
     return (
-        <>
+        <div className="player-view">
             <PlayerHeader player={player} />
             <div>
                 <h3>More Content Here!</h3>
             </div>
-        </>
+        </div>
     );
 };
 

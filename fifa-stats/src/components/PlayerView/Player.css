@@ -1,0 +1,82 @@
+/* UMMM {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0.25rem 0;
+} */
+
+.club-nationality-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.custom-label-left {
+    color: rgba(0,0,0,0.7);
+    font-size: 0.65rem;
+}
+
+.custom-label-right {
+    color: rgba(0,0,0,0.7);
+    font-size: 0.65rem;
+    text-align: right;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+}
+
+.player-club, .player-nationality {
+    margin-bottom: 0.5rem;
+}
+
+.player-club-text, .player-nationality-text {
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.player-data-value {
+    margin-bottom: 0.5rem;  
+}
+
+.player-header {
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    margin-bottom: 1rem;
+    padding-bottom: 0.25rem;
+}
+
+.player-name {
+    display: inline-block;
+    margin: 0 0.5rem;
+}
+
+.player-rank-overall, .player-rank-potential {
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+.player-value {
+    margin-right: 1.5rem;
+}
+
+.player-view {
+    background: rgba(0,0,0,0.1);
+    margin: 1rem 0.5rem;
+    padding: 0.5rem;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+.top-player-content {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
+
+.value-wage-wrapper {
+    display: flex;
+}

@@ -4,40 +4,63 @@ const PlayerHeader = ({ player }) => {
     return (
         <>
             <header className="player-header">
-                <h2 className="player-name">{player.name}</h2>
-                <p className="player-rank-overall">{player.overall}</p>
-                <p className="player-rank-potential">{player.potential}</p>
+                <div>
+                    <img
+                        alt={`Photo of ${player.name}`}
+                        className="player-image"
+                        src={player.photo}
+                    />
+                    <h2 className="player-name">{player.name}</h2>
+                </div>
             </header>
             <>
-                <img
-                    alt={`Photo of ${player.name}`}
-                    className="player-image"
-                    src={player.photo}
-                />
+                
             </>
             <div className="top-player-content">
-                <p className="player-club">
-                    <strong>Club:</strong> {player.club}
-                </p>
-                <img
-                    alt={`${player.club} logo`}
-                    className="player-club-image"
-                    src={player.clubLogo}
-                />
-                <p className="player-nationality">
-                    <strong>Nationality:</strong> {player.nationality}
-                </p>
-                <img
-                    alt={`${player.nationality} flag`}
-                    className="player-flag-image"
-                    src={player.flag}
-                />
-                <p className="player-value">
-                    <strong>Value:</strong> {player.value}
-                </p>
-                <p className="player-wage">
-                    <strong>Wage:</strong> {player.wage}
-                </p>
+                <div className="left-content">
+                    <div className="club-nationality-wrapper">
+                        <div className="player-club">
+                            <p className="custom-label-left">CLUB</p>
+                            <div className="flex-center">
+                                <img
+                                    alt={`${player.club} logo`}
+                                    className="player-club-image"
+                                    src={player.clubLogo}
+                                />
+                                <p className="player-club-text">{player.club}</p>
+                            </div>
+                        </div>
+                        <div className="player-nationality">
+                            <p className="custom-label-left">NATIONALITY</p>
+                            <img
+                                alt={`${player.nationality} flag`}
+                                className="player-flag-image"
+                                src={player.flag}
+                            />
+                            <p className="player-nationality-text">{player.nationality}</p>
+                        </div>
+                    </div>
+                    <div className="value-wage-wrapper">
+                        <div className="player-value">
+                            <p className="custom-label-left">VALUE</p>
+                            <p className="player-data-value">{player.value}</p>
+                        </div>
+                        <div className="player-wage">
+                            <p className="custom-label-left">WAGE</p>
+                            <p className="player-data-value">{player.wage}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="player-rankings">
+                    <p className="player-rank-overall">
+                        {player.overall}
+                    </p>
+                    <p className="custom-label-right">OVERALL</p>
+                    <p className="player-rank-potential">
+                        {player.potential}
+                    </p>
+                    <p className="custom-label-right">POTENTIAL</p>
+                </div>
             </div>
         </>
     )
