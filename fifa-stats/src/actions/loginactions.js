@@ -9,7 +9,7 @@ const url = 'api url goes here'
 
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+//export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const  login = creds => dispatch => {
     dispatch({type: LOGIN_START});
@@ -21,12 +21,12 @@ export const  login = creds => dispatch => {
                     dispatch({type: LOGIN_SUCCESS, payload: res.data.payload})
                     //getStats(dispatch)
                 })
-                .catch(err => {
-                    console.log(err)
-                })
+                // .catch(err => {
+                //     console.log(err)
+                // })
 }
 
-//FETCHING FIFA 19 stats 
+//FETCHING FIFA 19 stats  literals and actions
 
 export const getStats = dispatch => {
 
