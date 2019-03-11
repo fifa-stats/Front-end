@@ -2,6 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {login} from '../actions';
+// import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 
 class Login extends React.Component {
@@ -55,6 +56,16 @@ class Login extends React.Component {
                         />
                         <button className="login-btn">Log In</button>
                     </form>
+        {/* <Form>
+        <FormGroup>
+          <Input type="email" name="email"  placeholder="User Email" />
+        </FormGroup>
+        <FormGroup>
+          <Input type="password" name="password" placeholder="User Password" />
+        </FormGroup>
+       
+        <Button>Submit</Button>
+      </Form> */}
                 </div>
             </div>
         )
