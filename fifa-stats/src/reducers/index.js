@@ -12,6 +12,7 @@ import {
 
 
     const initialState = {
+        user: [],
         playerList: [],
         signUp: false,
         loggingIn: false,
@@ -40,7 +41,6 @@ import {
                 return {
                     ...state,
                     loggingIn: true,
-                    signUp: false,
                 }
             case LOGIN_SUCCESS: 
                 return {

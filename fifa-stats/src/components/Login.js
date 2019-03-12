@@ -107,8 +107,10 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                            <Button onClick={this.userSignup}>Sign Up</Button>
-                            <Button onClick={this.userLogin}>Log In</Button>
+                             <Button onClick={this.userLogin}>Log In</Button>
+                             <Button onClick={this.userSignup}>Sign Up</Button> 
+                            
+                            
                         </Form>
                 </div>
             </LogPage>
