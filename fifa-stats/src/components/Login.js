@@ -1,7 +1,7 @@
 //import the necessary dependencies 
 import React from 'react';
 import {connect} from 'react-redux';
-import {login} from '../actions';
+import {login, signup} from '../actions/loginactions';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import styled from 'styled-components';
 
@@ -17,6 +17,7 @@ flex-flow: column wrap;
 justify-content: center;
 align-items: center;
 color: black;
+text-align: center;
 `
 
 const Fifaheader = styled.h1`
@@ -28,6 +29,8 @@ class Login extends React.Component {
     //State to control input form for new and existing users
     state = {
         credentials: {
+            fname: "",
+            lname: "",
             email: "",
             password: ""
         }
@@ -45,13 +48,20 @@ class Login extends React.Component {
     //function to log in to the application
     userLogin = e => {
         e.preventDefault();
-        //this.props.getStats();
+        this.props.login(this.state.credentials)
+        .then(() => {
+            this.props.history.push("/player/:id")
+        })
+    }
+
+    userSignup = e => {
+        e.preventDefault();
+        this.props.signup(this.state.credentials)
     }
 
     render() {
         return (
             <LogPage>
-
                 <Fifaheader>FIFA STATS </Fifaheader>
 
                 <div className="login-img">
@@ -61,6 +71,24 @@ class Login extends React.Component {
                 <div className="login-box">
                     
                         <Form>
+                            <FormGroup>
+                            <Input 
+                            type="text" 
+                            name="fname" 
+                            value={this.state.credentials.fname} 
+                            placeholder="First Name" 
+                            onChange={this.handleChanges}
+                            />
+                            </FormGroup>
+                            <FormGroup>
+                            <Input 
+                            type="text" 
+                            name="lname"
+                            value={this.state.credentials.lname} 
+                            placeholder="LastName" 
+                            onChange={this.handleChanges}
+                            />
+                            </FormGroup>
                             <FormGroup>
                             <Input 
                             type="text" 
@@ -79,7 +107,8 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                            <Button>Log In</Button>
+                            <Button onClick={this.userSignup}>Sign Up</Button>
+                            <Button onClick={this.userLogin}>Log In</Button>
                         </Form>
                 </div>
             </LogPage>
@@ -89,5 +118,5 @@ class Login extends React.Component {
 
 export default connect(
     null,
-    {login}  
+    {login, signup}  
 )(Login);

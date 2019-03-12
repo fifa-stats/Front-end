@@ -1,15 +1,16 @@
 //import dependencies
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Route, Redirect, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-const PrivateRoute = ({component = Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, token , ...rest }) => {
     return (
         <Route
             {...rest}
             render={props => 
-                "token" ? 
+                token ? 
             (
-                <Component {...props} />
+               <Component {...props} />
             ) : (
                 <Redirect to="/login" />
             )
@@ -18,4 +19,13 @@ const PrivateRoute = ({component = Component, ...rest }) => {
     )
 }
 
-export default PrivateRoute;
+const mapStateToProps = ({token}) => ({
+    token
+})
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        {}
+    )(PrivateRoute)
+);

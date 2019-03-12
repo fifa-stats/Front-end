@@ -40,6 +40,7 @@ import {
                 return {
                     ...state,
                     loggingIn: true,
+                    signUp: false,
                 }
             case LOGIN_SUCCESS: 
                 return {

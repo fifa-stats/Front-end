@@ -3,7 +3,6 @@ import axios from 'axios';
 
 //store api url into a const
 
-const url = 'api url goes here'
 
 
 const url = 'https://fifa19.herokuapp.com/api'
@@ -20,7 +19,7 @@ export const  signup = creds => dispatch => {
         return axios
                 .post(`${url}/users/signup`, creds)
                 .then(res => {
-                    console.log(res);
+                    console.log(res.data);
                     //storage set item token
                     localStorage.setItem('token', res.data.payload)
                     dispatch({type: SIGNUP_SUCCESS, payload: res.data.payload})
@@ -44,8 +43,8 @@ export const  login = creds => dispatch => {
                 .then(res => {
                     console.log(res);
                     //storage set item token
-                    localStorage.setItem('token', res.data.payload)
-                    dispatch({type: LOGIN_SUCCESS, payload: res.data.payload})
+                    localStorage.setItem('token', res.data.payload);
+                    dispatch({type: LOGIN_SUCCESS, payload: res.data.payload});
                     //getStats(dispatch)
                 })
                 .catch(err => {

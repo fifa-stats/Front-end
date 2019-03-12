@@ -6,7 +6,7 @@ export const GET_TEAMS_START = 'GET_TEAMS_START';
 export const GET_TEAMS_SUCCESS = 'GET_TEAMS_SUCCESS';
 export const GET_TEAMS_FAILURE = 'GET_TEAMS_FAILURE';
 
-const url = 'https://fifa19.herokuapp.com/api';
+ const url = 'https://fifa19.herokuapp.com/api';
  
 
 export const getTeams =  () => dispatch => {
@@ -20,6 +20,6 @@ export const getTeams =  () => dispatch => {
             dispatch({type: GET_TEAMS_SUCCESS, payload: res.data})
         })
         .catch(err => {
-            consoe.log(err);
+            console.log(err);
         })
 }
