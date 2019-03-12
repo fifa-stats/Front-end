@@ -1,7 +1,7 @@
 //import the necessary dependencies 
 import React from 'react';
 import {connect} from 'react-redux';
-import {login} from '../actions';
+import {login} from '../actions/loginactions';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import styled from 'styled-components';
 
@@ -17,6 +17,7 @@ flex-flow: column wrap;
 justify-content: center;
 align-items: center;
 color: black;
+text-align: center;
 `
 
 const Fifaheader = styled.h1`
@@ -28,6 +29,8 @@ class Login extends React.Component {
     //State to control input form for new and existing users
     state = {
         credentials: {
+            fname: "",
+            lname: "",
             email: "",
             password: ""
         }
@@ -45,10 +48,11 @@ class Login extends React.Component {
     //function to log in to the application
     userLogin = e => {
         e.preventDefault();
-        //this.props.getStats();
+        this.props.login(this.state.credentials);
     }
 
     render() {
+        console.log(login)
         return (
             <LogPage>
 
@@ -60,7 +64,25 @@ class Login extends React.Component {
 
                 <div className="login-box">
                     
-                        <Form>
+                        <Form onSubmit={this.userLogin}>
+                            <FormGroup>
+                            <Input 
+                            type="text" 
+                            name="fname" 
+                            value={this.state.credentials.fname} 
+                            placeholder="First Name" 
+                            onChange={this.handleChanges}
+                            />
+                            </FormGroup>
+                            <FormGroup>
+                            <Input 
+                            type="text" 
+                            name="lname"
+                            value={this.state.credentials.lname} 
+                            placeholder="LastName" 
+                            onChange={this.handleChanges}
+                            />
+                            </FormGroup>
                             <FormGroup>
                             <Input 
                             type="text" 
