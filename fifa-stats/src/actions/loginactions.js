@@ -19,7 +19,7 @@ export const  signup = creds => dispatch => {
         return axios
                 .post(`${url}/users/signup`, creds)
                 .then(res => {
-                    console.log(res.data);
+                    console.log(res);
                     //storage set item token
                     localStorage.setItem('token', res.data.payload)
                     dispatch({type: SIGNUP_SUCCESS, payload: res.data.payload})
