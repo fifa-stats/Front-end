@@ -48,7 +48,10 @@ class Login extends React.Component {
     //function to log in to the application
     userLogin = e => {
         e.preventDefault();
-        this.props.login(this.state.credentials);
+        this.props.login(this.state.credentials)
+        .then(() => {
+            this.props.history.push("/player/:id")
+        })
     }
 
     userSignup = e => {

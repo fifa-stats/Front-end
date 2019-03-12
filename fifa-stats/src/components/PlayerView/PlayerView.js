@@ -34,12 +34,12 @@ const PlayerView = props => {
     useEffect(() => setPlayer(fakeDataSource[props.match.params.id]), []);
 
     return (
-        <div className="player-view">
+        <section className="player-view">
             <PlayerHeader player={player} />
             <div>
                 <h3>More Content Here!</h3>
             </div>
-        </div>
+        </section>
     );
 };
 
