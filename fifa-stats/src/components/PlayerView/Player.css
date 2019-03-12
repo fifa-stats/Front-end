@@ -27,8 +27,19 @@
     display: flex;
 }
 
+.left-content {
+    width: 50%;
+}
+
 .player-club, .player-nationality {
     margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+@media (min-width: 420px) {
+    .player-club, .player-nationality {
+        width: auto;
+    }
 }
 
 .player-club-text, .player-nationality-text {
@@ -41,14 +52,16 @@
 }
 
 .player-header {
+    align-items: center;
     border-bottom: 1px solid rgba(0,0,0,0.25);
+    display: flex;
     margin-bottom: 1rem;
     padding-bottom: 0.25rem;
 }
 
 .player-name {
     display: inline-block;
-    margin: 0 0.5rem;
+    margin: 0 1rem;
 }
 
 .player-rank-overall, .player-rank-potential {
