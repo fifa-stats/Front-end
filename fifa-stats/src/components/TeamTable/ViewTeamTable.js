@@ -26,6 +26,7 @@ const ViewTeamTable = props => {
           tooltip: 'Show Player Details'
         }
       ]}
+      onRowClick={(event, rowData, togglePanel) => togglePanel()}
     />
   );
 };
