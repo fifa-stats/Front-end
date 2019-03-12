@@ -1,7 +1,7 @@
 //import the necessary dependencies 
 import React from 'react';
 import {connect} from 'react-redux';
-import {login} from '../actions/loginactions';
+import {login, signup} from '../actions/loginactions';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import styled from 'styled-components';
 
@@ -51,11 +51,14 @@ class Login extends React.Component {
         this.props.login(this.state.credentials);
     }
 
+    userSignup = e => {
+        e.preventDefault();
+        this.props.signup(this.state.credentials)
+    }
+
     render() {
-        console.log(login)
         return (
             <LogPage>
-
                 <Fifaheader>FIFA STATS </Fifaheader>
 
                 <div className="login-img">
@@ -64,7 +67,7 @@ class Login extends React.Component {
 
                 <div className="login-box">
                     
-                        <Form onSubmit={this.userLogin}>
+                        <Form>
                             <FormGroup>
                             <Input 
                             type="text" 
@@ -101,7 +104,8 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                            <Button>Log In</Button>
+                            <Button onClick={this.userSignup}>Sign Up</Button>
+                            <Button onClick={this.userLogin}>Log In</Button>
                         </Form>
                 </div>
             </LogPage>
@@ -111,5 +115,5 @@ class Login extends React.Component {
 
 export default connect(
     null,
-    {login}  
+    {login, signup}  
 )(Login);

@@ -6,6 +6,28 @@ import axios from 'axios';
 const url = 'https://fifa19.herokuapp.com/api'
 //https://fifa19.herokuapp.com/api/users/signup
 
+
+//SIGNup literals and actions
+
+export const SIGNUP_START = 'SIGNUP_START';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+
+export const  signup = creds => dispatch => {
+    dispatch({type: SIGNUP_START});
+        return axios
+                .post(`${url}/users/signup`, creds)
+                .then(res => {
+                    console.log(res);
+                    //storage set item token
+                    localStorage.setItem('token', res.data.payload)
+                    dispatch({type: SIGNUP_SUCCESS, payload: res.data.payload})
+                    //getStats(dispatch)
+                })
+                .catch(err => {
+                    console.log(err.response.data)
+                })
+}
+
 //Login literals and actions
 
 export const LOGIN_START = 'LOGIN_START';
@@ -15,7 +37,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const  login = creds => dispatch => {
     dispatch({type: LOGIN_START});
         return axios
-                .post(`${url}/users/signup`, creds)
+                .post(`${url}/users/login`, creds)
                 .then(res => {
                     console.log(res);
                     //storage set item token
@@ -24,9 +46,11 @@ export const  login = creds => dispatch => {
                     //getStats(dispatch)
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log(err.response.data)  
                 })
 }
+
+
 
 //FETCHING FIFA 19 stats  literals and actions
 
