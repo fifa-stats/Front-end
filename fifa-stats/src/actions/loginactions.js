@@ -3,6 +3,8 @@ import axios from 'axios';
 
 //store api url into a const
 
+
+
 const url = 'https://fifa19.herokuapp.com/api'
 //https://fifa19.herokuapp.com/api/users/signup
 
@@ -41,19 +43,11 @@ export const  login = creds => dispatch => {
                 .then(res => {
                     console.log(res);
                     //storage set item token
-                    localStorage.setItem('token', res.data.payload)
-                    dispatch({type: LOGIN_SUCCESS, payload: res.data.payload})
+                    localStorage.setItem('token', res.data.payload);
+                    dispatch({type: LOGIN_SUCCESS, payload: res.data.payload});
                     //getStats(dispatch)
                 })
                 .catch(err => {
                     console.log(err.response.data)  
                 })
-}
-
-
-
-//FETCHING FIFA 19 stats  literals and actions
-
-export const getStats = dispatch => {
-
 }
