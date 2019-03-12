@@ -1,73 +1,26 @@
-import {
-    SIGNUP_START,
-    SIGNUP_SUCCESS,
-    LOGIN_START,
-    LOGIN_SUCCESS,
-    } from  '../actions/loginactions';
-import {
-    GET_TEAMS_START,
-    GET_TEAMS_SUCCESS,
-    GET_TEAMS_FAILURE,
-    } from '../actions/statsaction';
+import { combineReducers } from 'redux';
+
+import loginReducer from './loginReducer';
+import playerDataReducer from './playerDataReducer';
+import teamsReducer from './teamsReducer';
+import teamRosterReducer from './teamRosterReducer';
 
 
-    const initialState = {
-        playerList: [],
-        signUp: false,
-        loggingIn: false,
-        loggedIn: false,
-        gettingStats: false,
-        err: null,
-        token: localStorage.getItem('token')
-    };
-    
-    
-    
-    const reducer = (state = initialState, action) => {
-        switch(action.type) {
-            case SIGNUP_START:
-            return {
-                ...state,
-                signUp: true,
-            }
-            case SIGNUP_SUCCESS: 
-            return {
-                ...state,
-                signUp: false,
-                token: action.payload
-            }
-            case LOGIN_START:
-                return {
-                    ...state,
-                    loggingIn: true,
-                    signUp: false,
-                }
-            case LOGIN_SUCCESS: 
-                return {
-                    ...state,
-                    loggingIn: false,
-                    loggedIn: true,
-                    token: action.payload
-                }
-            case GET_TEAMS_START: 
-                return {
-                    ...state,
-                    gettingStats: true,
-                }
-            case GET_TEAMS_SUCCESS:
-                return {
-                    ...state,
-                    gettingStats:false,
-                    playList: action.payload
-                }
-            case GET_TEAMS_FAILURE:
-                return {
-                    ...state,
-                    gettingStats: false,
-                    err: action.payload
-                }
-            default:
-                return state;
-        }
-    }
-    export default reducer;
+export const initialState = {
+    signUp: false,
+    loggingIn: false,
+    loggedIn: false,
+    gettingStats: false,
+    gettingPlayerStats: false,
+    err: null,
+    playerData: {},
+    teamRoster: [],
+    token: localStorage.getItem('token')
+};
+
+export default combineReducers({
+    loginReducer,
+    playerDataReducer,
+    teamsReducer,
+    teamRosterReducer
+});
