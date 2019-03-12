@@ -50,7 +50,7 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.login(this.state.credentials)
         .then(() => {
-            this.props.history.push("/player/:id")
+            this.props.history.push("/user")
         })
     }
 
