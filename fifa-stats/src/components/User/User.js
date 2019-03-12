@@ -1,6 +1,14 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  } from 'reactstrap';
+import styled from 'styled-components';
+
+const UserBox = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`
 
  class User extends React.Component {
     constructor(props) {
@@ -19,7 +27,7 @@ import { Card, CardImg, CardText, CardBody, CardLink,
     }
     render() {
         return (
-            <div>
+            <UserBox>
         <Navbar color="faded" light>
           <NavbarBrand href="/" className="mr-auto">FIFA STATS</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
@@ -36,14 +44,14 @@ import { Card, CardImg, CardText, CardBody, CardLink,
                 <CardTitle>User title</CardTitle>
                 <CardSubtitle>User Favorite Team</CardSubtitle>
                 </CardBody>
-                <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+                <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
                 <CardLink href="#">Create Team</CardLink>
                 <CardLink href="#">My Teams</CardLink>
                 </CardBody>
             </Card>
-            </div>
+            </UserBox>
         );
     }
 };
