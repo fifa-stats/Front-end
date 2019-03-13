@@ -51,17 +51,10 @@ export const getTeams = () => dispatch => {
 // retrieve list of Player IDs for a given `teamID`
 export const getTeamRoster = (teamName) => dispatch => {
     dispatch({type: GET_TEAM_ROSTER_START});
-    console.log('statsaction', teamName);
+    // console.log('statsaction', teamName);
     axios
-        .get(`${url}/players/default`, {
-            headers: {
-                Authorization: localStorage.getItem("token"),
-            },
-            // This doesn't work
-            params: {teamName: 'real madrid'}
-        })
+        .get(`${url}/teams/default/${teamName.toLowerCase()}`)
         .then(res => {
-            console.log(res);
             dispatch({type: GET_TEAM_ROSTER_SUCCESS, payload: res.data})
         })
         .catch(err => {

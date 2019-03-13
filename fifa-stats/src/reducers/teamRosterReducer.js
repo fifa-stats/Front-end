@@ -1,7 +1,7 @@
 import {
-  GET_TEAMS_START,
-  GET_TEAMS_SUCCESS,
-  GET_TEAMS_FAILURE,
+  GET_TEAM_ROSTER_START,
+  GET_TEAM_ROSTER_SUCCESS,
+  GET_TEAM_ROSTER_FAILURE,
 } from '../actions/statsaction';
 
 const initialState = {
@@ -12,18 +12,18 @@ const initialState = {
 
 const teamRosterReducer = (state = initialState, action) => {
   switch(action.type) {
-    case GET_TEAMS_START: 
+    case GET_TEAM_ROSTER_START: 
       return {
         ...state,
         gettingRoster: true,
       };
-    case GET_TEAMS_SUCCESS:
+    case GET_TEAM_ROSTER_SUCCESS:
       return {
         ...state,
         gettingRoster: false,
         teamRoster: action.payload
       };
-    case GET_TEAMS_FAILURE:
+    case GET_TEAM_ROSTER_FAILURE:
       return {
         ...state,
         gettingRoster: false,
