@@ -36,7 +36,7 @@ const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingIn: false,
-        loggedIn: true,
+        //loggedIn: true,
         token: action.payload
       };
     default:

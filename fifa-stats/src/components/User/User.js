@@ -3,6 +3,7 @@ import { Card, CardImg, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  
 } from 'reactstrap';
 import {getTeams} from '../../actions/statsaction';
+import{createTeam} from '../../actions/customactions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
@@ -36,11 +37,12 @@ align-items: center;
 
     createTeam = e => {
       e.preventDefault();
-      this.props.createTeam(this.state.name)
-      this.setState({
-        ...this.state,
-        name: '',
-      })
+      console.log(this.props)
+      // this.props.createTeam(this.state.name)
+      // this.setState({
+      //   ...this.state,
+      //   name: '',
+      // })
     }
     
     toggleNavbar() {
@@ -95,6 +97,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {getTeams}
+  {getTeams, createTeam}
 )
 (User);
