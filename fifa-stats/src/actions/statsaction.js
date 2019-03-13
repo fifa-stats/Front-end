@@ -49,11 +49,16 @@ export const getTeams = () => dispatch => {
 };
 
 // retrieve list of Player IDs for a given `teamID`
-export const getTeamRoster = (teamID) => dispatch => {
+export const getTeamRoster = (teamName) => dispatch => {
     dispatch({type: GET_TEAM_ROSTER_START});
+    console.log('statsaction', teamName);
     axios
-        .get(`${url}/teams/${teamID}`, {
-            headers:{Authorization: localStorage.getItem("token")}
+        .get(`${url}/players/default`, {
+            headers: {
+                Authorization: localStorage.getItem("token"),
+            },
+            // This doesn't work
+            params: {teamName: 'real madrid'}
         })
         .then(res => {
             console.log(res);
