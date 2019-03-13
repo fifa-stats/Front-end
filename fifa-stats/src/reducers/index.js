@@ -15,6 +15,7 @@ import {
         user: [],
         playerList: [],
         signUp: false,
+        userExist: false,
         loggingIn: false,
         loggedIn: false,
         gettingStats: false,
@@ -35,6 +36,7 @@ import {
             return {
                 ...state,
                 signUp: false,
+                userExist: true,
                 token: action.payload
             }
             case LOGIN_START:

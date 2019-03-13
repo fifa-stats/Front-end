@@ -71,7 +71,8 @@ class Login extends React.Component {
                 <div className="login-box">
                     
                         <Form>
-                            <FormGroup>
+                         {this.props.token? null :
+                         <FormGroup>
                             <Input 
                             type="text" 
                             name="fname" 
@@ -80,7 +81,8 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                            <FormGroup>
+                         }
+                          {this.props.token? null :  <FormGroup>
                             <Input 
                             type="text" 
                             name="lname"
@@ -89,6 +91,7 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
+                         }
                             <FormGroup>
                             <Input 
                             type="text" 
@@ -107,8 +110,13 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                             <Button onClick={this.userLogin}>Log In</Button>
-                             <Button onClick={this.userSignup}>Sign Up</Button> 
+
+                            {this.props.token? <Button onClick={this.userLogin}>Log In</Button> 
+                            : <Button onClick={this.userSignup}>Sign Up</Button> 
+                            }
+
+                             {/* <Button onClick={this.userLogin}>Log In</Button>
+                             <Button onClick={this.userSignup}>Sign Up</Button>  */}
                             
                             
                         </Form>
@@ -118,7 +126,11 @@ class Login extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    token: state.token
+})
+
 export default connect(
-    null,
+    mapStateToProps,
     {login, signup}  
 )(Login);
