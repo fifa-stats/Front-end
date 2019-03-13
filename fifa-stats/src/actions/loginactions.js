@@ -21,8 +21,8 @@ export const signup = creds => dispatch => {
                 .then(res => {
                     console.log(res);
                     //storage set item token
-                    localStorage.setItem('token', res.data.payload);
-                    dispatch({type: SIGNUP_SUCCESS, payload: res.data.payload});
+                    localStorage.setItem('token', res.data)
+                    dispatch({type: SIGNUP_SUCCESS, payload: res.data})
                     //getStats(dispatch)
                 })
                 .catch(err => {
