@@ -5,7 +5,7 @@ const PlayerHeader = ({ player }) => {
         <>
             <header className="player-header">
               <img
-                  alt={`Photo of ${player.name}`}
+                  alt={`${player.name}`}
                   className="player-image"
                   src={player.photo}
               />
