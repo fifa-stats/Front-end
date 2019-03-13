@@ -1,20 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getTeamRoster } from '../../actions/statsaction';
+import { getTeams, getTeamRoster } from '../../actions/statsaction';
 import './TeamTable.css';
 import ViewTeamTable from './ViewTeamTable';
-
-/** 
- * This file holds BOTH the ViewTeamTable and the ManageTeamTable
- * ViewTeamTable will just display the default teams – no editing
- * ManageTeamTable will display teams, too, but also allow editing
- * 
- * This component will make an axios call to the API endpoint.
- * The endpoint will return a list of player IDs.
- * Then, the component will loop through that list of player IDs,
- * and set the state to hold those Players 
-*/
 
 
 class TeamTableContainer extends React.Component {
@@ -25,34 +14,26 @@ class TeamTableContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeamRoster(this.props.match.params.teamName);
-  }
+
+    // check if the `customTeamsList` is longer than 0, otherwise fetch it
+    (function checkCustomTeamsList() {
+      return () => this.props.customTeamsList.length > 0
+        ? null
+        : this.props.getTeams();
+    })();
+  };
 
   render() {
     return (
-      // testing stuff below
       <>
-        <form
-          onSubmit={event => {
-            event.preventDefault();
-            this.props.getTeamRoster(this.formElement.current.value);
-          }}
-        >
-          <input
-            defaultValue="Real Madrid"
-            name="team"
-            ref={this.formElement}
-            type="text"
-          />
-          <button type="submit">Submit</button>
-        </form>
-        {/* <section>
-          this.props.teamRoster<br></br>{this.props.teamRoster}
-        </section> */}
-      {/* end testing stuff */}
+        {this.props.location.pathname.includes('default')
+          ? <button>Create Custom Team from {this.props.match.params.teamName}</button>
+          : <button>Delete Custom Team</button>
+        }
         <ViewTeamTable
           roster={this.props.teamRoster}
-          teamName={'Real Madrid'}
-          // teamName={this.props.WHATEVER}
+          teamName={this.props.match.params.teamName}
+          teamtype={this.props.teamType}
         />
       </>
     )
@@ -60,9 +41,31 @@ class TeamTableContainer extends React.Component {
 };
 
 function mapStateToProps(state) {
+  console.log('mapStateToProps customTeamsList: ', state.teamsReducer.teamList);
   return {
+    customTeamsList: state.teamsReducer.teamList,
     teamRoster: state.teamRosterReducer.teamRoster
   }
 };
 
-export default connect(mapStateToProps, { getTeamRoster })(TeamTableContainer);
+export default connect(mapStateToProps, { getTeams, getTeamRoster })(TeamTableContainer);
+
+
+// {/* <form
+//           onSubmit={event => {
+//             event.preventDefault();
+//             this.props.getTeamRoster(this.formElement.current.value);
+//           }}
+//         >
+//           <input
+//             defaultValue="Real Madrid"
+//             name="team"
+//             ref={this.formElement}
+//             type="text"
+//           />
+//           <button type="submit">Submit</button>
+//         </form>
+//         {/* <section>
+//           this.props.teamRoster<br></br>{this.props.teamRoster}
+//         </section> */}
+//       end testing stuff */}

@@ -27,19 +27,15 @@ const ViewTeamTable = props => {
           },
           { title: 'Name', field: 'Name', type: 'string', cellStyle: {padding: '0 10px'} },
           { title: 'Overall Rating', field: 'Overall', type: 'numeric' },
-          { title: 'Potential Rating', field: 'Potential', type: 'numeric' },
+          // { title: 'Potential Rating', field: 'Potential', type: 'numeric' },
           // { title: 'Reputation', field: 'internationalReputation', type: 'numeric' },
           // {
           //   title: 'Value',
           //   field: 'Value',
           //   render: rowData => `€${rowData.Value}`,
           // },
-          { title: 'Value', field: 'Value', type: 'currency', currencySetting: { maximumFractionDigits: 1 } },
-          {
-            field: 'Wage',
-            render: rowData => `€${rowData.Wage}`,
-            title: 'Wage',
-          },
+          { title: 'Value', field: 'Value', type: 'currency', currencySetting: { currencyCode: 'EUR' } },
+          { title: 'Wage', field: 'Wage', currencySetting: { currencyCode: 'EUR' }, type: 'currency' },
           { title: 'Performance Ratio', field: 'performanceRatio', type: 'numeric' }
         ]}
         // @TODO: update the data below to use data drawn in
@@ -59,6 +55,15 @@ const ViewTeamTable = props => {
           paging: false,
           search: false
         }}
+        actions={[
+          {
+            icon: 'add',
+            tooltip: 'Add to My Team',
+            onClick: (event, rowData) => {
+              alert('You clicked user ' + rowData.id)
+            }
+          }
+        ]}
       />
     </section>
   );

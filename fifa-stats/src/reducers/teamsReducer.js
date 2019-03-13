@@ -22,7 +22,9 @@ const initialState = {
   error: null,
   gettingTeams: false,
   creatingTeam: false,
+  deletingTeam: false,
   addingPlayer: false,
+  deletingPlayer: false,
   teamList: []
 };
 
@@ -54,7 +56,7 @@ const teamsReducer = (state = initialState, action) => {
       return {
         ...state,
         createTeam:false,
-        // teamList:  action.payload
+        teamList: action.payload
       };
     case CREATE_CUSTOM_TEAM_FAILURE:
       return {
@@ -62,6 +64,57 @@ const teamsReducer = (state = initialState, action) => {
         createTeam: false,
         error: action.payload
       };
+    case DELETE_CUSTOM_TEAM_START:
+     return {
+       ...state,
+       deletingTeam: true,
+     }
+    case DELETE_CUSTOM_TEAM_SUCCESS:
+     return {
+       ...state,
+       deletingTeam: false,
+       teamList: []
+     }
+    case DELETE_CUSTOM_TEAM_FAILURE:
+     return {
+       ...state,
+       deletingTeam: false,
+       error: action.payload
+     }
+    case ADD_PLAYER_START: 
+      return {
+        ...state,
+        addingPlayer: true,
+      }
+    case ADD_PLAYER_SUCCESS:
+      return {
+        ...state,
+        addingPlayer: false,
+        teamList: action.payload
+      }
+    case ADD_PLAYER_FAILURE:
+      return {
+        ...state,
+        addingPlayer: false,
+        error: action.payload
+      }
+    case DELETE_PLAYER_START:
+      return {
+        ...state,
+        deletingPlayer: true,
+      }
+    case DELETE_PLAYER_SUCCESS:
+      return {
+        ...state,
+        deletingPlayer: false,
+        teamList: action.payload,
+      }
+    case DELETE_PLAYER_FAILURE:
+      return {
+        ...state,
+        deletingPlayer: false,
+        error: action.payload
+      }
     default:
       return state;
   }

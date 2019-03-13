@@ -25,10 +25,12 @@ margin-bottom: 30px;
 `
 
 
-class Login extends React.Component {
+class Signup extends React.Component {
     //State to control input form for new and existing users
     state = {
         credentials: {
+            fname: "",
+            lname: "",
             email: "",
             password: ""
         }
@@ -44,19 +46,19 @@ class Login extends React.Component {
     }
 
     //function to log in to the application
-    userLogin = e => {
-        e.preventDefault();
-        this.props.login(this.state.credentials)
-        .then(() => {
-            this.props.history.push("/user")
-        })
-    }
-
-    // userSignup = e => {
+    // userLogin = e => {
     //     e.preventDefault();
-    //     this.props.signup(this.state.credentials)
-    //     this.props.history.push("/login")
+    //     this.props.login(this.state.credentials)
+    //     .then(() => {
+    //         this.props.history.push("/user")
+    //     })
     // }
+
+    userSignup = e => {
+        e.preventDefault();
+        this.props.signup(this.state.credentials)
+        this.props.history.push("/login")
+    }
 
     render() {
         return (
@@ -70,7 +72,7 @@ class Login extends React.Component {
                 <div className="login-box">
                     
                         <Form>
-                         {/* {this.props.token? null :
+                        
                          <FormGroup>
                             <Input 
                             type="text" 
@@ -80,8 +82,8 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                         }
-                          {this.props.token? null :  <FormGroup>
+                         
+                        <FormGroup>
                             <Input 
                             type="text" 
                             name="lname"
@@ -90,7 +92,7 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                         } */}
+    
                             <FormGroup>
                             <Input 
                             type="text" 
@@ -114,8 +116,8 @@ class Login extends React.Component {
                             : <Button onClick={this.userSignup}>Sign Up</Button> 
                             } */}
 
-                             <Button onClick={this.userLogin}>Log In</Button>
-                             {/* <Button onClick={this.userSignup}>Sign Up</Button>  */}
+                             {/* <Button onClick={this.userLogin}>Log In</Button> */}
+                             <Button onClick={this.userSignup}>Sign Up</Button> 
                             
                             
                         </Form>
@@ -125,11 +127,11 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    token: state.token
-})
+// const mapStateToProps = (state) => ({
+//     token: state.token
+// })
 
 export default connect(
-    mapStateToProps,
-    {login}  
-)(Login);
+ null,   // mapStateToProps,
+    {signup}  
+)(Signup);

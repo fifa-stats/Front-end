@@ -53,7 +53,7 @@ export const getTeamRoster = (teamName) => dispatch => {
     dispatch({type: GET_TEAM_ROSTER_START});
     // console.log('statsaction', teamName);
     axios
-        .get(`${url}/teams/default/${teamName.toLowerCase()}`)
+        .get(`${url}/teams/default/${teamName}`)
         .then(res => {
             dispatch({type: GET_TEAM_ROSTER_SUCCESS, payload: res.data})
         })
