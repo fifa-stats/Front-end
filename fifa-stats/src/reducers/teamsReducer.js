@@ -4,28 +4,34 @@ import {
   GET_TEAMS_FAILURE,
 } from '../actions/statsaction';
 
-import { initialState } from './index';
+const initialState = {
+  error: null,
+  gettingTeams: false,
+  teamList: []
+};
 
-export default teamsReducer = (state = initialState, action) => {
+const teamsReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_TEAMS_START: 
       return {
         ...state,
-        gettingStats: true,
+        gettingTeams: true,
       };
     case GET_TEAMS_SUCCESS:
       return {
         ...state,
-        gettingStats:false,
+        gettingTeams:false,
         teamList: action.payload
       };
     case GET_TEAMS_FAILURE:
       return {
         ...state,
-        gettingStats: false,
-        err: action.payload
+        gettingTeams: false,
+        error: action.payload
       };
     default:
       return state;
   }
 };
+
+export default teamsReducer;
