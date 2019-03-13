@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {getStats} from '../actions/statsaction';
+import { getTeamRoster } from '../../actions/statsaction';
 
 /** 
  * This file holds BOTH the ViewTeamTable and the ManageTeamTable
@@ -14,23 +14,45 @@ import {getStats} from '../actions/statsaction';
 */
 
 class TeamTableContainer extends React.Component {
-  
+  constructor(props) {
+    super(props);
+    this.formElement = React.createRef();
+  };
   render() {
-    // @TODO: update the prop below
-    <ViewTeamTable
-      playerList={this.props.WHATEVER}
-      teamName={this.props.WHATEVER}
-    />
+    return (
+      // @TODO: update the props below
+      // <ViewTeamTable
+      //   playerList={this.props.WHATEVER}
+      //   teamName={this.props.WHATEVER}
+      // />
+      <>
+        <form
+          onSubmit={event => {
+            event.preventDefault();
+            this.props.getTeamRoster(this.formElement.current.value);
+          }}
+        >
+          <input
+            defaultValue="Real Madrid"
+            name="team"
+            ref={this.formElement}
+            type="text"
+          />
+          <button type="submit">Submit</button>
+        </form>
+        <section>
+          this.props.teamRoster<br></br>{this.props.teamRoster}
+        </section>
+      </>
+    )
   };
 };
 
 function mapStateToProps(state) {
+  console.log('mapStateToProps: ', state.teamsReducer.teamRoster);
   return {
-    // state goes here
-    // `playerList` should be the array of players WITH data, if that's OK
-    playerList: state.playerList
-    // `teamName` should be the team name
+    teamRoster: state.teamsReducer.teamRoster
   }
-}
+};
 
-export default connect(mapStateToProps, { getStats })(TeamTableContainer);
+export default connect(mapStateToProps, { getTeamRoster })(TeamTableContainer);
