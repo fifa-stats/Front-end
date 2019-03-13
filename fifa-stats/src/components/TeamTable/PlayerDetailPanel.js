@@ -11,7 +11,7 @@ const PlayerDetailPanel = props => {
         backgroundColor: 'blue'
       }}
     >
-      {props.rowData.name}
+      {props.rowData.Name}
     </div>
   );
 };

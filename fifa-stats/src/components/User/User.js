@@ -1,6 +1,9 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  } from 'reactstrap';
+  CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  
+} from 'reactstrap';
+import {getTeams} from '../../actions/statsaction';
+import {connect} from 'react-redux';
 import styled from 'styled-components';
 
 const UserBox = styled.div`
@@ -16,10 +19,30 @@ align-items: center;
   
       this.toggleNavbar = this.toggleNavbar.bind(this);
       this.state = {
-        collapsed: true
+        collapsed: true,
+        name: ''
       };
     }
-  
+    componentDidMount() {
+      this.props.getTeams();
+    }
+
+    handleChanges = e => {
+      this.setState({
+          ...this.state,
+          [e.target.name]: e.target.value
+      })
+  }
+
+    createTeam = e => {
+      e.preventDefault();
+      this.props.createTeam(this.state.name)
+      this.setState({
+        ...this.state,
+        name: '',
+      })
+    }
+    
     toggleNavbar() {
       this.setState({
         collapsed: !this.state.collapsed
@@ -44,11 +67,21 @@ align-items: center;
                 <CardTitle>User title</CardTitle>
                 <CardSubtitle>User Favorite Team</CardSubtitle>
                 </CardBody>
-                <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+                  {this.props.teamList.map(team => 
+                     <div>team</div>
+                    )}
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                <CardLink href="#">Create Team</CardLink>
-                <CardLink href="#">My Teams</CardLink>
+                <form>
+                  <input
+                  value={this.state.name}
+                  name="name"
+                  onChange={this.handleChanges}
+                  placeholder="Custom Team Name"
+                  />
+                 <button onClick={this.createTeam}>Create Team</button>
+                </form>
+                {/* <CardLink href="#">My Teams</CardLink> */}
                 </CardBody>
             </Card>
             </UserBox>
@@ -56,4 +89,12 @@ align-items: center;
     }
 };
 
-export default User;
+const mapStateToProps = state => ({
+  teamList: state.teamsReducer.teamList
+})
+
+export default connect(
+  mapStateToProps,
+  {getTeams}
+)
+(User);
