@@ -1,57 +1,57 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 
+import PlayerDetailPanel from './PlayerDetailPanel';
+
 /**
  * ViewTeamTable 
  * 
  */
 
-const codedPlayer = {
-  row: 1,
-  id: 158023,
-  name: 'L. Messi',
-  age: 31,
-  photo: 'https://cdn.sofifa.org/players/4/19/158023.png',
-  nationality: 'Argentina',
-  flag: 'https://cdn.sofifa.org/flags/52.png',
-  overall: 94,
-  potential: 94,
-  club: 'FC Barcelona',
-  clubLogo: 'https://cdn.sofifa.org/teams/2/light/241.png',
-  value: '€110.5M',
-  wage: '€565K',
-  special: 2202,
-  preferredFoot: 'Left',
-  internationalReputation: 5,
-  weakFoot: 4,
-  skillMoves:	4,
-  workRate: 'Medium/ Medium',
-};
 
 const ViewTeamTable = props => {
+  console.log('ViewTeamTable roster: ', props.roster);
+  console.log('array test', [{1: 'one'}, {2: 'two'}, {3: 'three'}]);
   return (
-    <MaterialTable 
-      columns={[
-        { title: 'Name', field: 'name', type: 'string' },
-        { title: 'Overall Rating', field: 'overall', type: 'numeric' },
-        { title: 'Potential Rating', field: 'potential', type: 'numeric' },
-        { title: 'Reputation', field: 'internationalReputation', type: 'numeric' },
-        { title: 'Value', field: 'value', type: 'currency' },
-        { title: 'Wage', title: 'wage', type: 'currency' },
-      ]}
-      // @TODO: update the data below to use data drawn in
-      //data={props.playerList}
-      data={[codedPlayer]}
-      title={props.teamName}
-      detailPanel={[
-        {
-          icon: 'account_circle',
-          render: <PlayerDetailPanel rowData={rowData} />,
-          tooltip: 'Show Player Details'
-        }
-      ]}
-      onRowClick={(event, rowData, togglePanel) => togglePanel()}
-    />
+    <section className="team-table">
+      <MaterialTable 
+        columns={[
+          { title: 'Name', field: 'Name', type: 'string' },
+          { title: 'Overall Rating', field: 'Overall', type: 'numeric' },
+          { title: 'Potential Rating', field: 'Potential', type: 'numeric' },
+          // { title: 'Reputation', field: 'internationalReputation', type: 'numeric' },
+          {
+            title: 'Value',
+            field: 'Value',
+            render: rowData => `€${rowData.Value}`,
+          },
+          {
+            field: 'Wage',
+            render: rowData => `€${rowData.Wage}`,
+            title: 'Wage',
+          },
+          { title: 'Performance Ratio', field: 'performanceRatio', type: 'numeric' }
+        ]}
+        // @TODO: update the data below to use data drawn in
+        //data={props.playerList}
+        data={props.roster}
+        title={props.teamName}
+        detailPanel={[
+          {
+            icon: 'account_circle',
+            render: rowData => {
+              return <PlayerDetailPanel rowData={rowData} />
+            },
+            tooltip: 'Show Player Details',
+          }
+        ]}
+        onRowClick={(event, rowData, togglePanel) => togglePanel()}
+        options={{
+          paging: false,
+          search: false
+        }}
+      />
+    </section>
   );
 };
 
