@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getTeams, getTeamRoster } from '../../actions/statsaction';
+import { copyDefaultTeamToCustom } from '../../actions/customactions';
 import './TeamTable.css';
 import ViewTeamTable from './ViewTeamTable';
 
@@ -27,7 +28,9 @@ class TeamTableContainer extends React.Component {
     return (
       <>
         {this.props.location.pathname.includes('default')
-          ? <button>Create Custom Team from {this.props.match.params.teamName}</button>
+          ? <button onClick={this.props.copyDefaultTeamToCustom(this.props.match.params.teamName)}>
+              Create Custom Team from {this.props.match.params.teamName}
+            </button>
           : <button>Delete Custom Team</button>
         }
         <ViewTeamTable
@@ -48,7 +51,7 @@ function mapStateToProps(state) {
   }
 };
 
-export default connect(mapStateToProps, { getTeams, getTeamRoster })(TeamTableContainer);
+export default connect(mapStateToProps, { copyDefaultTeamToCustom, getTeams, getTeamRoster })(TeamTableContainer);
 
 
 // {/* <form
