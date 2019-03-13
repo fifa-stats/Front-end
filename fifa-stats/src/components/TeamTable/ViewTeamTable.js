@@ -10,21 +10,31 @@ import PlayerDetailPanel from './PlayerDetailPanel';
 
 
 const ViewTeamTable = props => {
-  console.log('ViewTeamTable roster: ', props.roster);
-  console.log('array test', [{1: 'one'}, {2: 'two'}, {3: 'three'}]);
   return (
     <section className="team-table">
       <MaterialTable 
         columns={[
-          { title: 'Name', field: 'Name', type: 'string' },
+          { 
+            field: 'Photo', 
+            render: rowData => 
+              <img
+                alt={rowData.Name} 
+                src={rowData.Photo} 
+                style={{ height: 36, borderRadius: '50%' }}
+              />,
+            title: '',
+            cellStyle: {padding: '0 10px'}
+          },
+          { title: 'Name', field: 'Name', type: 'string', cellStyle: {padding: '0 10px'} },
           { title: 'Overall Rating', field: 'Overall', type: 'numeric' },
           { title: 'Potential Rating', field: 'Potential', type: 'numeric' },
           // { title: 'Reputation', field: 'internationalReputation', type: 'numeric' },
-          {
-            title: 'Value',
-            field: 'Value',
-            render: rowData => `€${rowData.Value}`,
-          },
+          // {
+          //   title: 'Value',
+          //   field: 'Value',
+          //   render: rowData => `€${rowData.Value}`,
+          // },
+          { title: 'Value', field: 'Value', type: 'currency', currencySetting: { maximumFractionDigits: 1 } },
           {
             field: 'Wage',
             render: rowData => `€${rowData.Wage}`,
@@ -38,7 +48,6 @@ const ViewTeamTable = props => {
         title={props.teamName}
         detailPanel={[
           {
-            icon: 'account_circle',
             render: rowData => {
               return <PlayerDetailPanel rowData={rowData} />
             },

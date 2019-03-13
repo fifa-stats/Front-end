@@ -16,36 +16,17 @@ import ViewTeamTable from './ViewTeamTable';
  * and set the state to hold those Players 
 */
 
-const fakeRoster = [
-  {
-    row: 1,
-    id: 158023,
-    name: 'L. Messi',
-    age: 31,
-    photo: 'https://cdn.sofifa.org/players/4/19/158023.png',
-    nationality: 'Argentina',
-    flag: 'https://cdn.sofifa.org/flags/52.png',
-    overall: 94,
-    potential: 94,
-    club: 'FC Barcelona',
-    clubLogo: 'https://cdn.sofifa.org/teams/2/light/241.png',
-    value: '110.5',
-    wage: '565',
-    special: 2202,
-    preferredFoot: 'Left',
-    internationalReputation: 5,
-    weakFoot: 4,
-    skillMoves:	4,
-    workRate: 'Medium/ Medium',
-    performanceRatio: 4.308511
-  }
-]
 
 class TeamTableContainer extends React.Component {
   constructor(props) {
     super(props);
     this.formElement = React.createRef();
   };
+
+  componentDidMount() {
+    this.props.getTeamRoster(this.props.match.params.teamName);
+  }
+
   render() {
     return (
       // testing stuff below
@@ -79,7 +60,6 @@ class TeamTableContainer extends React.Component {
 };
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps teamRoster: ', state.teamRosterReducer.teamRoster);
   return {
     teamRoster: state.teamRosterReducer.teamRoster
   }

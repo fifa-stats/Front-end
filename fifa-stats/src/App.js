@@ -12,7 +12,7 @@ class App extends Component {
       <Router>
         <header className="App-header">
           {/* the route below is temporary, just so I can test it for now */}
-          <Route exact path="/" component={TeamTableContainer} />
+          <Route path="/team/:teamName" component={TeamTableContainer} />
           <Route exact path="/login" component={Login}/>
           <PrivateRoute exact path="/user" component={User}/>
         </header>
