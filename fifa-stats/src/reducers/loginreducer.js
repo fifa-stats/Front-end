@@ -5,7 +5,15 @@ import {
   LOGIN_SUCCESS,
 } from  '../actions/loginactions';
 
-export default loginReducer = (state = initialState, action) => {
+const initialState = {
+  error: null,
+  loggingIn: false,
+  loggedIn: false,
+  signUp: false,
+  token: localStorage.getItem('token')
+};
+
+const loginReducer = (state = initialState, action) => {
   switch(action.type) {
     case SIGNUP_START:
       return {
@@ -35,3 +43,5 @@ export default loginReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default loginReducer;
