@@ -19,8 +19,8 @@ const PrivateRoute = ({ component: Component, token , ...rest }) => {
     )
 }
 
-const mapStateToProps = ({token}) => ({
-    token
+const mapStateToProps = (state) => ({
+    token: state.loginReducer.token
 })
 
 export default withRouter(
