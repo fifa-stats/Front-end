@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-
 import loginReducer from './loginReducer';
 import playerDataReducer from './playerDataReducer';
 import teamsReducer from './teamsReducer';
