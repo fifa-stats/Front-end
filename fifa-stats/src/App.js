@@ -12,8 +12,8 @@ class App extends Component {
     return (
       <Router>
         <header className="App-header">
-          <NavLink to="/"> Sign Up </NavLink>
-          <NavLink to="/login"> Log In </NavLink>
+          {/* <NavLink to="/"> Sign Up </NavLink>
+          <NavLink to="/login"> Log In </NavLink> */}
           {/* the route below is temporary, just so I can test it for now */}
           <Route path="/team/default/:teamName" component={TeamTableContainer} />
           <Route path="/team/custom/:teamID" component={TeamTableContainer} />

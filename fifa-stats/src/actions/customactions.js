@@ -32,23 +32,37 @@ const url = 'https://fifa19.herokuapp.com/api';
 
 export const CREATE_CUSTOM_TEAM_START = 'CREATE_CUSTOM_TEAM_START';
 export const CREATE_CUSTOM_TEAM_SUCCESS = 'CREATE_CUSTOM_TEAM_SUCCESS';
-export const CREATE_CUSTOM_TEAM_FAILURE = 'CREATE_CUSTOME_TEAM_FAILURE';
+export const CREATE_CUSTOM_TEAM_FAILURE = 'CREATE_CUSTOM_TEAM_FAILURE';
 
 export const createTeam = (newTeam) => dispatch => {
     dispatch({type: CREATE_CUSTOM_TEAM_START});
-    return axios
-       .post(`${url}/teams`, {
-       headers:{Authorization: localStorage.getItem("token")}
-       } , newTeam)
-       .then(res=> {
-           console.log(res);
-           dispatch({type: CREATE_CUSTOM_TEAM_SUCCESS, payload: res.data})
-       })
-       .catch(err => {
-           console.log(err.message)
-           dispatch({type: CREATE_CUSTOM_TEAM_FAILURE, payload: err.data})
+   // console.log(localStorage.getItem('token'))
+    return axios({
+        url: "/teams",
+        method: "post",
+        baseURL: "https://fifa19.herokuapp.com/api/",
+        headers: {Authorization:  localStorage.getItem("token")},
+        data: {name:newTeam}
+      })
+      .then(res => {
+          console.log(res);
+          dispatch({type: CREATE_CUSTOM_TEAM_SUCCESS, payload: res.data})
+      })
+    
+    // axios
+    //    .post(`${url}/teams`, newTeam , 
+    //    {headers:{Authorization: localStorage.getItem("token")}} 
+    //    ) 
+    //    .then(res=> {
+    //        console.log(res);
+           
+    //        dispatch({type: CREATE_CUSTOM_TEAM_SUCCESS, payload: res.data})
+    //    })
+    //    .catch(err => {
+    //        console.log(err.message)
+    //        dispatch({type: CREATE_CUSTOM_TEAM_FAILURE, payload: err.data})
 
-       })
+    //    })
 }
 
 // COPY DEFAULT TEAM TO NEW CUSTOM TEAM

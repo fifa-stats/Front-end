@@ -23,6 +23,9 @@ text-align: center;
 const Fifaheader = styled.h1`
 margin-bottom: 30px;
 `
+const Cusbtn = styled.button`
+display: block;
+`
 
 
 class Signup extends React.Component {
@@ -57,6 +60,11 @@ class Signup extends React.Component {
     userSignup = e => {
         e.preventDefault();
         this.props.signup(this.state.credentials)
+        this.props.history.push("/login")
+    }
+
+    jump = e => {
+        e.preventDefault();
         this.props.history.push("/login")
     }
 
@@ -118,8 +126,8 @@ class Signup extends React.Component {
 
                              {/* <Button onClick={this.userLogin}>Log In</Button> */}
                              <Button onClick={this.userSignup}>Sign Up</Button> 
-                            
-                            
+                             <Button onClick={this.jump}>Log In</Button> 
+
                         </Form>
                 </div>
             </LogPage>
