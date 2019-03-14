@@ -62,7 +62,8 @@ export const copyDefaultTeamToCustom = (defaultTeamName) => dispatch => {
     return axios
         .post(`${url}/teams/copy`, {
             headers: {Authorization: localStorage.getItem("token")},
-        }, {name: defaultTeamName})
+            name: defaultTeamName
+        })
         .then(res => {
             console.log(res);
             dispatch({type: COPY_TEAM_SUCCESS, payload: res.data})
