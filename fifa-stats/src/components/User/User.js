@@ -3,7 +3,7 @@ import { Button, Card, CardImg, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  
 } from 'reactstrap';
 import {getTeams} from '../../actions/statsaction';
-import{createTeam} from '../../actions/customactions';
+import{createTeam , deleteTeam} from '../../actions/customactions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
@@ -51,6 +51,12 @@ align-items: center;
       })
     }
 
+    deleteItem = (id) => {
+      //e.preventDefault();
+      console.log(id)
+      this.props.deleteTeam(id)
+    }
+
     logOut = e => {
       e.preventDefault();
       localStorage.clear();
@@ -84,7 +90,10 @@ align-items: center;
                 </CardBody>
                   {Array.isArray(this.props.teamList) &&
 					          this.props.teamList.map(team => {
-							      return <div key={team.id}>{team.name}</div>;
+                    return <div key={team.id}>
+                   <div>{team.name}</div>
+                    <button onClick={() => {this.deleteItem(team.id)}}>Delete Team</button>
+                    </div>;
 						      })}
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
@@ -112,6 +121,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {getTeams, createTeam}
+  {getTeams, createTeam, deleteTeam}
 )
 (User);

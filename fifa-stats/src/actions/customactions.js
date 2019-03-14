@@ -71,6 +71,16 @@ export const DELETE_CUSTOM_TEAM_START = 'DELETE_CUSTOM_TEAM_START';
 export const DELETE_CUSTOM_TEAM_SUCCESS = 'DELETE_CUSTOM_TEAM_SUCCESS';
 export const DELETE_CUSTOM_TEAM_FAILURE = 'DELETE_CUSTOME_TEAM_FAILURE';
 
+// axios({
+//     url: "/teams/${id}",
+//     method: "delete",
+//     baseURL: "https://fifa19.herokuapp.com/api/",
+//     headers: {Authorization:  localStorage.getItem("token")},
+//     data: {id: id}
+//   })
+
+
+
 export const deleteTeam = (id) => dispatch => {
     dispatch({type: DELETE_CUSTOM_TEAM_START});
     return axios
@@ -78,7 +88,7 @@ export const deleteTeam = (id) => dispatch => {
        headers:{Authorization: localStorage.getItem("token")}
        })
        .then(res=> {
-           console.log(res);
+           console.log(res.data);
            dispatch({type: DELETE_CUSTOM_TEAM_SUCCESS, payload: res.data})
        })
        .catch(err => {

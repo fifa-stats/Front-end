@@ -73,7 +73,7 @@ const teamsReducer = (state = initialState, action) => {
      return {
        ...state,
        deletingTeam: false,
-       teamList: []
+       teamList: [...state.teamList]
      }
     case DELETE_CUSTOM_TEAM_FAILURE:
      return {
