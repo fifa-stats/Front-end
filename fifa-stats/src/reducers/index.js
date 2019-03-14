@@ -1,24 +1,12 @@
-import {
-LOGIN_START,
-LOGIN_SUCCESS,
-} from  '../actions/loginactions';
-const initialState = {
-    stats: [],
-    loggingIn: false,
-    err: null
-};
+import { combineReducers } from 'redux';
+import loginReducer from './loginReducer';
+import playerDataReducer from './playerDataReducer';
+import teamsReducer from './teamsReducer';
+import teamRosterReducer from './teamRosterReducer';
 
-
-
-const reducer = (state = initialState, action) => {
-    switch(action.type) {
-        case LOGIN_START:
-            return {
-                ...state,
-                loggingIn: true,
-            }
-        default:
-            return state;
-    }
-}
-export default reducer;
+export default combineReducers({
+    loginReducer,
+    playerDataReducer,
+    teamsReducer,
+    teamRosterReducer
+});

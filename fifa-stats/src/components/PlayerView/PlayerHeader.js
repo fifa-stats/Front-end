@@ -4,14 +4,12 @@ const PlayerHeader = ({ player }) => {
     return (
         <>
             <header className="player-header">
-                <div>
-                    <img
-                        alt={`Photo of ${player.name}`}
-                        className="player-image"
-                        src={player.photo}
-                    />
-                    <h2 className="player-name">{player.name}</h2>
-                </div>
+              <img
+                  alt={`${player.name}`}
+                  className="player-image"
+                  src={player.photo}
+              />
+              <h1 className="player-name">{player.name}</h1>
             </header>
             <>
                 
@@ -19,6 +17,15 @@ const PlayerHeader = ({ player }) => {
             <div className="top-player-content">
                 <div className="left-content">
                     <div className="club-nationality-wrapper">
+                        <div className="player-nationality">
+                            <p className="custom-label-left">NATIONALITY</p>
+                            <img
+                                alt={`${player.nationality} flag`}
+                                className="player-flag-image"
+                                src={player.flag}
+                            />
+                            <p className="player-nationality-text">{player.nationality}</p>
+                        </div>
                         <div className="player-club">
                             <p className="custom-label-left">CLUB</p>
                             <div className="flex-center">
@@ -29,16 +36,7 @@ const PlayerHeader = ({ player }) => {
                                 />
                                 <p className="player-club-text">{player.club}</p>
                             </div>
-                        </div>
-                        <div className="player-nationality">
-                            <p className="custom-label-left">NATIONALITY</p>
-                            <img
-                                alt={`${player.nationality} flag`}
-                                className="player-flag-image"
-                                src={player.flag}
-                            />
-                            <p className="player-nationality-text">{player.nationality}</p>
-                        </div>
+                        </div> 
                     </div>
                     <div className="value-wage-wrapper">
                         <div className="player-value">

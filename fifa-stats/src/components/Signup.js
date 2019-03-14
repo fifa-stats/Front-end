@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const LogPage = styled.div`
 width: 100%;
-height: 725px;
+height: 400px;
 background: 
   url('https://i.imgur.com/aJiApGC.jpg')
     no-repeat fixed center;
@@ -19,19 +19,21 @@ align-items: center;
 color: black;
 text-align: center;
 `
-const Box = styled.div`
-background: #c2c7cd 
-`
+
 const Fifaheader = styled.h1`
 margin-bottom: 30px;
-font-size: 4rem;
+`
+const Cusbtn = styled.button`
+display: block;
 `
 
 
-class Login extends React.Component {
+class Signup extends React.Component {
     //State to control input form for new and existing users
     state = {
         credentials: {
+            fname: "",
+            lname: "",
             email: "",
             password: ""
         }
@@ -47,24 +49,24 @@ class Login extends React.Component {
     }
 
     //function to log in to the application
-    userLogin = e => {
+    // userLogin = e => {
+    //     e.preventDefault();
+    //     this.props.login(this.state.credentials)
+    //     .then(() => {
+    //         this.props.history.push("/user")
+    //     })
+    // }
+
+    userSignup = e => {
         e.preventDefault();
-        this.props.login(this.state.credentials)
-        .then(() => {
-            console.log( this.props.history)
-            this.props.history.push("/user")
-        })
+        this.props.signup(this.state.credentials)
+        this.props.history.push("/login")
     }
 
     jump = e => {
         e.preventDefault();
-        this.props.history.push("/")
+        this.props.history.push("/login")
     }
-    // userSignup = e => {
-    //     e.preventDefault();
-    //     this.props.signup(this.state.credentials)
-    //     this.props.history.push("/login")
-    // }
 
     render() {
         return (
@@ -75,10 +77,10 @@ class Login extends React.Component {
                      {/* for a picture */}
                  </div>
 
-                <Box>
+                <div className="login-box">
                     
                         <Form>
-                         {/* {this.props.token? null :
+                        
                          <FormGroup>
                             <Input 
                             type="text" 
@@ -88,8 +90,8 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                         }
-                          {this.props.token? null :  <FormGroup>
+                         
+                        <FormGroup>
                             <Input 
                             type="text" 
                             name="lname"
@@ -98,7 +100,7 @@ class Login extends React.Component {
                             onChange={this.handleChanges}
                             />
                             </FormGroup>
-                         } */}
+    
                             <FormGroup>
                             <Input 
                             type="text" 
@@ -122,23 +124,22 @@ class Login extends React.Component {
                             : <Button onClick={this.userSignup}>Sign Up</Button> 
                             } */}
 
-                             <Button onClick={this.userLogin}>Log In</Button>
-                             <Button onClick={this.jump}>Sign Up</Button>
-                             {/* <Button onClick={this.userSignup}>Sign Up</Button>  */}
-                            
-                            
+                             {/* <Button onClick={this.userLogin}>Log In</Button> */}
+                             <Button onClick={this.userSignup}>Sign Up</Button> 
+                             <Button onClick={this.jump}>Log In</Button> 
+
                         </Form>
-                </Box>
+                </div>
             </LogPage>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
-    token: state.token
-})
+// const mapStateToProps = (state) => ({
+//     token: state.token
+// })
 
 export default connect(
-    mapStateToProps,
-    {login}  
-)(Login);
+ null,   // mapStateToProps,
+    {signup}  
+)(Signup);
