@@ -42,7 +42,7 @@ const teamsReducer = (state = initialState, action) => {
     case GET_TEAMS_SUCCESS:
       return {
         ...state,
-        gettingTeams:false,
+        gettingTeams: false,
         teamList: action.payload
       };
     case GET_TEAMS_FAILURE:

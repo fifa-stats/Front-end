@@ -33,7 +33,7 @@ export const getPlayerData = (playerID) => dispatch => {
 };
 
 // return list of teams for current user
-export const getTeams = () => dispatch => {
+export const getCustomTeams = () => dispatch => {
     dispatch({type: GET_TEAMS_START});
     axios
         .get(`${url}/teams`, {

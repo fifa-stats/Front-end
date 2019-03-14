@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getTeams, getDefaultTeamRoster } from '../../actions/statsaction';
+import { getCustomTeams, getDefaultTeamRoster } from '../../actions/statsaction';
 import { copyDefaultTeamToCustom } from '../../actions/customactions';
 import './TeamTable.css';
 import ViewTeamTable from './ViewTeamTable';
@@ -10,6 +10,9 @@ import ViewTeamTable from './ViewTeamTable';
 class DefaultTeamContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.props.customTeamsList.length > 0
+        ? console.log('checkCustomTeamsList null', this.props.customTeamsList.length)
+        : this.props.getCustomTeams();
   };
 
   componentDidMount() {
@@ -18,11 +21,12 @@ class DefaultTeamContainer extends React.Component {
      * Check if the `customTeamsList` is longer than 0, otherwise fetch it.
      * NOTE: `checkCustomTeamsList()` is an Immediately Invoked Function 
      */
-    (function checkCustomTeamsList() {
-      return () => this.props.customTeamsList.length > 0
-        ? null
-        : this.props.getTeams();
-    })();
+    // (function checkCustomTeamsList() {
+    //   console.log('checkCustomTeamsList null', () => this.props.customTeamsList.length);
+    //   return () => this.props.customTeamsList.length > 0
+    //     ? console.log('checkCustomTeamsList null', this.props.customTeamsList.length)
+    //     : () => this.props.getTeams();
+    // })();
   };
 
   componentDidUpdate(prevProps) {
@@ -32,13 +36,15 @@ class DefaultTeamContainer extends React.Component {
      * using `copyDefaultTeamToCustom()`, and page should
      * redirect to page for newest customTeam.
      */
-    if (this.props.customTeamsList !== prevProps.customTeamsList) {
-      console.log('customTeamsList before redirect: ', this.props.customTeamsList);
-      this.props.history.push(
-        `/team/custom/${this.props.customTeamsList[
-          this.props.customTeamsList.length - 1]}`
-      )
-    }
+    if (prevProps.customTeamsList.length !== 0) {
+      if (this.props.customTeamsList.length !== prevProps.customTeamsList.length) {
+       console.log('customTeamsList before redirect: ', prevProps.customTeamsList);
+       this.props.history.push(
+         `/team/custom/${this.props.customTeamsList[
+           this.props.customTeamsList.length - 1].id}`
+       )
+     };
+    };
   };
 
   render() {
@@ -72,5 +78,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { copyDefaultTeamToCustom, getTeams, getDefaultTeamRoster }
+  { copyDefaultTeamToCustom, getCustomTeams, getDefaultTeamRoster }
 )(DefaultTeamContainer);
