@@ -15,7 +15,6 @@ class App extends Component {
         <header className="App-header">
           <NavLink to="/"> Sign Up </NavLink>
           <NavLink to="/login"> Log In </NavLink>
-          {/* the route below is temporary, just so I can test it for now */}
           <Route path="/team/default/:teamName" component={DefaultTeamContainer} />
           <Route path="/team/custom/:teamID" component={CustomTeamContainer} />
           <Route exact path="/login" component={Login}/>
