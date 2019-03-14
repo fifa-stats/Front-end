@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const LogPage = styled.div`
 width: 100%;
-height: 400px;
+height: 725px;
 background: 
   url('https://i.imgur.com/aJiApGC.jpg')
     no-repeat fixed center;
@@ -19,9 +19,12 @@ align-items: center;
 color: black;
 text-align: center;
 `
-
+const Box = styled.div`
+background: #c2c7cd 
+`
 const Fifaheader = styled.h1`
 margin-bottom: 30px;
+font-size: 4rem;
 `
 
 
@@ -72,7 +75,7 @@ class Login extends React.Component {
                      {/* for a picture */}
                  </div>
 
-                <div className="login-box">
+                <Box>
                     
                         <Form>
                          {/* {this.props.token? null :
@@ -125,7 +128,7 @@ class Login extends React.Component {
                             
                             
                         </Form>
-                </div>
+                </Box>
             </LogPage>
         )
     }

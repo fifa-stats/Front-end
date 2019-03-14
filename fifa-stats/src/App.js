@@ -11,16 +11,20 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <div>
         <header className="App-header">
+        </header>
           {/* <NavLink to="/"> Sign Up </NavLink>
           <NavLink to="/login"> Log In </NavLink> */}
           {/* the route below is temporary, just so I can test it for now */}
+          <div>
           <Route path="/team/default/:teamName" component={TeamTableContainer} />
           <Route path="/team/custom/:teamID" component={TeamTableContainer} />
           <Route exact path="/login" component={Login}/>
           <Route exact path="/" component={Signup} />
           <PrivateRoute exact path="/user" component={User}/>
-        </header>
+          </div>
+          </div>
       </Router>
     );
   }
