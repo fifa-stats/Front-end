@@ -91,10 +91,12 @@ align-items: center;
                 </CardBody>
                   {Array.isArray(this.props.teamList) &&
 					          this.props.teamList.map(team => {
-                    return <Link to={`team/custom/${team.id}`} key={team.id}>
+                    return <div>
+                    <Link to={`team/custom/${team.id}`} key={team.id}>
                    <div>{team.name}</div>
-                    <button onClick={() => {this.deleteItem(team.id)}}>Delete Team</button>
                     </Link>;
+                    <button onClick={() => {this.deleteItem(team.id)}}>Delete Team</button>
+                    </div>
 						      })}
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
