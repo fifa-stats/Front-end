@@ -26,6 +26,7 @@ class CustomTeamContainer extends React.Component {
           // TODO: add actual data source to roster
           roster={this.props.teamRoster}
           // TODO: bring in Custom Team name, if possible
+          teamID={this.props.match.params.teamID}
           teamName={'Custom Team'}
           teamtype={'custom'}
         />

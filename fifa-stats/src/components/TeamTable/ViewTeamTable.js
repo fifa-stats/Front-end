@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AriaModal from 'react-aria-modal';
 import MaterialTable from 'material-table';
 
-import { addPlayer } from '../../actions/customactions';
+import { addPlayer, deletePlayer } from '../../actions/customactions';
 import PlayerDetailPanel from './PlayerDetailPanel';
 import './Modal.css';
 
@@ -11,41 +11,61 @@ const ViewTeamTable = props => {
   const [modalPlayer, setModalPlayer] = useState({id: 0, name: 'default test'});
   const getApplicationNode = () => document.querySelector('.root');
 
+  const defaultActionAddPlayer = {
+    icon: 'add',
+    tooltip: 'Add to My Team',
+    onClick: (rowData) => {
+      console.log('onClick: ', modalActive);
+      setModalPlayer({
+        id: rowData.id,
+        name: rowData.Name
+      });  
+      setModalActive(true);
+      console.log('onClick: ', modalActive);
+      return;
+    }
+  };
+  const customActionDeletePlayer = {
+    icon: 'delete',
+    tooltip: 'Remove From Team',
+    onClick: (event, rowData) => deletePlayer(props.teamID, rowData.id)
+  }
+
   const modal = modalActive
-        ?   <AriaModal
-                initialFocus="#cancel"
-                getApplicationNode={() => getApplicationNode()}
-                onExit={() => setModalActive(false)}
-                titleText="Select Custom Team"
-                underlayStyle={{ paddingTop: '2rem' }}
-                verticallyCenter
-            >
-                <div className="select-custom-team-modal">
-                    <header>
-                        <h3>Add Player to Custom Team</h3>
-                    </header>
-                    <div className="modal-body">
-                      <p>To which custom team would you like to add {modalPlayer.name}?</p>
-                      {props.customTeamsList.map(team => {
-                        return <button
-                          key={team.id}
-                          onClick={addPlayer(team.id, modalPlayer.id)}
-                          type="button"
-                        >{team.name}</button>
-                      })}
-                    </div>
-                    <footer className="modal-footer">
-                        <button
-                            id="cancel"
-                            onClick={() => setModalActive(false)}
-                            type="button"
-                        >
-                            Cancel
-                        </button>
-                    </footer>
-                </div>
-            </AriaModal>
-        : false;
+    ? <AriaModal
+      initialFocus="#cancel"
+      getApplicationNode={() => getApplicationNode()}
+      onExit={() => setModalActive(false)}
+      titleText="Select Custom Team"
+      underlayStyle={{ paddingTop: '2rem' }}
+      verticallyCenter
+    >
+      <div className="select-custom-team-modal">
+        <header>
+            <h3>Add Player to Custom Team</h3>
+        </header>
+        <div className="modal-body">
+          <p>To which custom team would you like to add {modalPlayer.name}?</p>
+          {props.customTeamsList.map(team => {
+            return <button
+              key={team.id}
+              onClick={addPlayer(team.id, modalPlayer.id)}
+              type="button"
+            >{`${team.name} – ${team.id}`}</button>
+          })}
+        </div>
+        <footer className="modal-footer">
+          <button
+            id="cancel"
+            onClick={() => setModalActive(false)}
+            type="button"
+          >
+            Cancel
+          </button>
+        </footer>
+      </div>
+    </AriaModal>
+    : false;
 
   return (
     <section className="team-table">
@@ -84,22 +104,11 @@ const ViewTeamTable = props => {
           paging: false,
           search: false
         }}
-        actions={[
-          {
-            icon: 'add',
-            tooltip: 'Add to My Team',
-            onClick: (event, rowData) => {
-              console.log('onClick: ', modalActive);
-              setModalPlayer({
-                id: rowData.id,
-                name: rowData.Name
-              });  
-              setModalActive(true);
-              console.log('onClick: ', modalActive);
-              return;
-            }
-          }
-        ]}
+        actions={
+          props.teamType === 'default'
+            ? [defaultActionAddPlayer]
+            : [customActionDeletePlayer]
+        }
       />
       {modal}
     </section>
