@@ -74,13 +74,15 @@ export const COPY_TEAM_FAILURE = 'COPY_TEAM_FAILURE';
 export const copyDefaultTeamToCustom = (defaultTeamName) => dispatch => {
     dispatch({ type: COPY_TEAM_START});
     return axios
-        .post(`${url}/teams/copy`, {
-            headers: {Authorization: localStorage.getItem("token")},
-        }, {name: defaultTeamName})
+        .post(`${url}/teams/copy`,
+        {name: defaultTeamName},
+        {headers: {Authorization: localStorage.getItem("token")},
+        })
         .then(res => {
             console.log(res);
             dispatch({type: COPY_TEAM_SUCCESS, payload: res.data})
         })
+        .catch(err => dispatch({type: COPY_TEAM_FAILURE, payload: err}));
 }
 
 //DELETE CUSTOM TEAM
