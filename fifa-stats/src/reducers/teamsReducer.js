@@ -77,7 +77,7 @@ const teamsReducer = (state = initialState, action) => {
       return {
         ...state,
         createTeam:false,
-        teamList: action.payload
+        teamList: [...state.teamList, action.payload]
       };
     case CREATE_CUSTOM_TEAM_FAILURE:
       return {
@@ -94,7 +94,7 @@ const teamsReducer = (state = initialState, action) => {
      return {
        ...state,
        deletingTeam: false,
-       teamList: []
+       teamList: action.payload
      }
     case DELETE_CUSTOM_TEAM_FAILURE:
      return {

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const LogPage = styled.div`
 width: 100%;
-height: 400px;
+height: 725px;
 background: 
   url('https://i.imgur.com/aJiApGC.jpg')
     no-repeat fixed center;
@@ -19,9 +19,12 @@ align-items: center;
 color: black;
 text-align: center;
 `
-
+const Box = styled.div`
+background: #c2c7cd 
+`
 const Fifaheader = styled.h1`
 margin-bottom: 30px;
+font-size: 4rem;
 `
 
 
@@ -53,6 +56,10 @@ class Login extends React.Component {
         })
     }
 
+    jump = e => {
+        e.preventDefault();
+        this.props.history.push("/")
+    }
     // userSignup = e => {
     //     e.preventDefault();
     //     this.props.signup(this.state.credentials)
@@ -68,7 +75,7 @@ class Login extends React.Component {
                      {/* for a picture */}
                  </div>
 
-                <div className="login-box">
+                <Box>
                     
                         <Form>
                          {/* {this.props.token? null :
@@ -116,11 +123,12 @@ class Login extends React.Component {
                             } */}
 
                              <Button onClick={this.userLogin}>Log In</Button>
+                             <Button onClick={this.jump}>Sign Up</Button>
                              {/* <Button onClick={this.userSignup}>Sign Up</Button>  */}
                             
                             
                         </Form>
-                </div>
+                </Box>
             </LogPage>
         )
     }
