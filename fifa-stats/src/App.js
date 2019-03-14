@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -15,7 +16,7 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          <Route path="/" component={NavBar} />
+          <NavBar/>
           <Switch> {/* Visit https://reacttraining.com/react-router/web/api/Switch for more info */}
             <Route path="/team/default/:teamName" component={DefaultTeamContainer} />
             <Route path="/team/custom/:teamID" component={CustomTeamContainer} />
