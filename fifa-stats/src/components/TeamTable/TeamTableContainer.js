@@ -10,7 +10,9 @@ import ViewTeamTable from './ViewTeamTable';
 class TeamTableContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.formElement = React.createRef();
+    this.teamType = this.props.location.pathname.includes('default')
+      ? 'default'
+      : 'custom';
   };
 
   componentDidMount() {
@@ -24,11 +26,29 @@ class TeamTableContainer extends React.Component {
     })();
   };
 
+  componentDidUpdate(prevProps) {
+    /**
+     * Check if the `customTeamsList` has changed
+     * If it has changed, user likely created a customTeam
+     * using `copyDefaultTeamToCustom()`, and page should
+     * redirect to page for newest customTeam.
+     */
+    if (this.props.customTeamsList !== prevProps.customTeamsList) {
+      this.props.history.push(
+        `/team/custom/${this.props.customTeamsList[
+          this.props.customTeamsList.length - 1]}`
+      )
+    }
+  };
+
   render() {
     return (
       <>
-        {this.props.location.pathname.includes('default')
-          ? <button onClick={this.props.copyDefaultTeamToCustom(this.props.match.params.teamName)}>
+        {this.teamType === 'default'
+          ? <button onClick={() => 
+              this.props.copyDefaultTeamToCustom(
+                this.props.match.params.teamName)}
+            >
               Create Custom Team from {this.props.match.params.teamName}
             </button>
           : <button>Delete Custom Team</button>
@@ -36,10 +56,10 @@ class TeamTableContainer extends React.Component {
         <ViewTeamTable
           roster={this.props.teamRoster}
           teamName={this.props.match.params.teamName}
-          teamtype={this.props.teamType}
+          teamtype={this.teamType}
         />
       </>
-    )
+    );
   };
 };
 
