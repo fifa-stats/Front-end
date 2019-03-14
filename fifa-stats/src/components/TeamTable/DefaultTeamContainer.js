@@ -38,7 +38,7 @@ class DefaultTeamContainer extends React.Component {
      */
     if (prevProps.customTeamsList.length !== 0) {
       if (this.props.customTeamsList.length !== prevProps.customTeamsList.length) {
-       console.log('customTeamsList before redirect: ', prevProps.customTeamsList);
+       console.log('customTeamsList before redirect: ', this.props.customTeamsList);
        this.props.history.push(
          `/team/custom/${this.props.customTeamsList[
            this.props.customTeamsList.length - 1].id}`

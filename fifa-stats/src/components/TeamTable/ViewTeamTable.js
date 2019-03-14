@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import AriaModal from 'react-aria-modal';
 import MaterialTable from 'material-table';
 
@@ -6,7 +7,7 @@ import { addPlayer, deletePlayer } from '../../actions/customactions';
 import PlayerDetailPanel from './PlayerDetailPanel';
 import './Modal.css';
 
-const ViewTeamTable = props => {
+const ViewTeamTable = ({ dispatch, ...props }) => {
   const [modalActive, setModalActive] = useState(false);
   const [modalPlayer, setModalPlayer] = useState({id: 0, name: 'default test'});
   const getApplicationNode = () => document.querySelector('.root');
@@ -14,22 +15,21 @@ const ViewTeamTable = props => {
   const defaultActionAddPlayer = {
     icon: 'add',
     tooltip: 'Add to My Team',
-    onClick: (rowData) => {
-      console.log('onClick: ', modalActive);
+    onClick: (event, rowData) => {
+      // console.log('onClick test: ', rowData.id, rowData.Name);
       setModalPlayer({
         id: rowData.id,
         name: rowData.Name
-      });  
+      });
       setModalActive(true);
-      console.log('onClick: ', modalActive);
       return;
     }
   };
   const customActionDeletePlayer = {
     icon: 'delete',
     tooltip: 'Remove From Team',
-    onClick: (event, rowData) => deletePlayer(props.teamID, rowData.id)
-  }
+    onClick: (event, rowData) => dispatch(deletePlayer(props.teamID, rowData.id))
+  };
 
   const modal = modalActive
     ? <AriaModal
@@ -49,7 +49,10 @@ const ViewTeamTable = props => {
           {props.customTeamsList.map(team => {
             return <button
               key={team.id}
-              onClick={addPlayer(team.id, modalPlayer.id)}
+              onClick={() => {
+                setModalActive(false);
+                dispatch(addPlayer(team.id, modalPlayer.id));
+              }}
               type="button"
             >{`${team.name} – ${team.id}`}</button>
           })}
@@ -115,4 +118,4 @@ const ViewTeamTable = props => {
   );
 };
 
-export default ViewTeamTable;
+export default connect()(ViewTeamTable);
