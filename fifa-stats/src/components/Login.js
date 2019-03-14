@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const LogPage = styled.div`
 width: 100%;
-height: 725px;
+height: 550px;
 background: 
   url('https://i.imgur.com/aJiApGC.jpg')
     no-repeat fixed center;
@@ -20,7 +20,7 @@ color: black;
 text-align: center;
 `
 const Box = styled.div`
-background: #c2c7cd 
+
 `
 const Fifaheader = styled.h1`
 margin-bottom: 30px;
@@ -69,7 +69,7 @@ class Login extends React.Component {
     render() {
         return (
             <LogPage>
-                <Fifaheader>FIFA STATS </Fifaheader>
+                {/* <Fifaheader>FIFA STATS </Fifaheader> */}
 
                 <div className="login-img">
                      {/* for a picture */}
