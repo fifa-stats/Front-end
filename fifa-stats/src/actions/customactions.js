@@ -45,7 +45,7 @@ export const createTeam = (newTeam) => dispatch => {
         data: {name:newTeam}
       })
       .then(res => {
-          console.log(res);
+          console.log(res.data);
           dispatch({type: CREATE_CUSTOM_TEAM_SUCCESS, payload: res.data})
       })
     

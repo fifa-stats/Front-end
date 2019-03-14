@@ -28,6 +28,13 @@ align-items: center;
       this.props.getTeams();
     }
 
+    // componentDidUpdate(prevProps, prevState) {
+    //   // only update chart if the data has changed
+    //   if (prevProps.teamList !== this.props.teamList) {
+    //     return this.props.getTeams();
+    //   }
+    // }
+
     handleChanges = e => {
       this.setState({
           ...this.state,
@@ -38,10 +45,10 @@ align-items: center;
     createTeam = e => {
       e.preventDefault();
       this.props.createTeam(this.state.name)
-      // this.setState({
-      //   ...this.state,
-      //   name: '',
-      // })
+      // this.props.getTeams();
+      this.setState({
+        name: ''
+      })
     }
 
     logOut = e => {
@@ -57,7 +64,7 @@ align-items: center;
     }
     render() {
         return (
-            <UserBox>
+        <UserBox>
         <Navbar color="faded" light>
           <NavbarBrand href="/" className="mr-auto">FIFA STATS</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
@@ -75,9 +82,10 @@ align-items: center;
                 <CardTitle>User title</CardTitle>
                 <CardSubtitle>User Favorite Team</CardSubtitle>
                 </CardBody>
-                  {this.props.teamList.map(team => 
-                     {return <div key={team.id}>{team.name}</div>}
-                    )}
+                  {Array.isArray(this.props.teamList) &&
+					          this.props.teamList.map(team => {
+							      return <div key={team.id}>{team.name}</div>;
+						      })}
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
                 <form>
