@@ -27,7 +27,7 @@ const ViewTeamTable = props => {
           { title: 'Performance Ratio', field: 'performanceRatio', type: 'numeric' }
         ]}
         data={props.roster}
-        title={props.teamName}
+        title={`${props.teamName} – Full Roster`}
         detailPanel={[
           {
             render: rowData => {

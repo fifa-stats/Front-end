@@ -7,18 +7,17 @@ import './TeamTable.css';
 import ViewTeamTable from './ViewTeamTable';
 
 
-class TeamTableContainer extends React.Component {
+class DefaultTeamContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.teamType = this.props.location.pathname.includes('default')
-      ? 'default'
-      : 'custom';
   };
 
   componentDidMount() {
     this.props.getTeamRoster(this.props.match.params.teamName);
-
-    // check if the `customTeamsList` is longer than 0, otherwise fetch it
+    /** 
+     * Check if the `customTeamsList` is longer than 0, otherwise fetch it.
+     * NOTE: `checkCustomTeamsList()` is an Immediately Invoked Function 
+     */
     (function checkCustomTeamsList() {
       return () => this.props.customTeamsList.length > 0
         ? null
@@ -44,19 +43,17 @@ class TeamTableContainer extends React.Component {
   render() {
     return (
       <>
-        {this.teamType === 'default'
-          ? <button onClick={() => 
-              this.props.copyDefaultTeamToCustom(
-                this.props.match.params.teamName)}
-            >
-              Create Custom Team from {this.props.match.params.teamName}
-            </button>
-          : <button>Delete Custom Team</button>
-        }
+        {/* TODO: Create `TeamHeader` component to house stats and buttons */}
+        <button onClick={() => 
+          this.props.copyDefaultTeamToCustom(
+            this.props.match.params.teamName)}
+        >
+          Create Custom Team from {this.props.match.params.teamName}
+        </button>
         <ViewTeamTable
           roster={this.props.teamRoster}
           teamName={this.props.match.params.teamName}
-          teamtype={this.teamType}
+          teamtype={'default'}
         />
       </>
     );
@@ -71,7 +68,7 @@ function mapStateToProps(state) {
   }
 };
 
-export default connect(mapStateToProps, { copyDefaultTeamToCustom, getTeams, getTeamRoster })(TeamTableContainer);
+export default connect(mapStateToProps, { copyDefaultTeamToCustom, getTeams, getTeamRoster })(DefaultTeamContainer);
 
 
 // {/* <form
