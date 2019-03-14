@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link , NavLink} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -12,15 +12,13 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <header className="App-header">
-          <NavLink to="/"> Sign Up </NavLink>
-          <NavLink to="/login"> Log In </NavLink>
+        <Switch> {/* Visit https://reacttraining.com/react-router/web/api/Switch for more info */}
           <Route path="/team/default/:teamName" component={DefaultTeamContainer} />
           <Route path="/team/custom/:teamID" component={CustomTeamContainer} />
           <Route exact path="/login" component={Login}/>
           <Route exact path="/" component={Signup} />
           <PrivateRoute exact path="/user" component={User}/>
-        </header>
+        </Switch>
       </Router>
     );
   }

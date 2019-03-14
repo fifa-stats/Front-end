@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getTeams, getTeamRoster } from '../../actions/statsaction';
+import { getTeams, getDefaultTeamRoster } from '../../actions/statsaction';
 import { copyDefaultTeamToCustom } from '../../actions/customactions';
 import './TeamTable.css';
 import ViewTeamTable from './ViewTeamTable';
@@ -13,7 +13,7 @@ class DefaultTeamContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getTeamRoster(this.props.match.params.teamName);
+    this.props.getDefaultTeamRoster(this.props.match.params.teamName);
     /** 
      * Check if the `customTeamsList` is longer than 0, otherwise fetch it.
      * NOTE: `checkCustomTeamsList()` is an Immediately Invoked Function 
@@ -33,6 +33,7 @@ class DefaultTeamContainer extends React.Component {
      * redirect to page for newest customTeam.
      */
     if (this.props.customTeamsList !== prevProps.customTeamsList) {
+      console.log('customTeamsList before redirect: ', this.props.customTeamsList);
       this.props.history.push(
         `/team/custom/${this.props.customTeamsList[
           this.props.customTeamsList.length - 1]}`
@@ -51,9 +52,10 @@ class DefaultTeamContainer extends React.Component {
           Create Custom Team from {this.props.match.params.teamName}
         </button>
         <ViewTeamTable
+          customTeamsList={this.props.customTeamsList}
           roster={this.props.teamRoster}
           teamName={this.props.match.params.teamName}
-          teamtype={'default'}
+          teamType={'default'}
         />
       </>
     );
@@ -68,24 +70,7 @@ function mapStateToProps(state) {
   }
 };
 
-export default connect(mapStateToProps, { copyDefaultTeamToCustom, getTeams, getTeamRoster })(DefaultTeamContainer);
-
-
-// {/* <form
-//           onSubmit={event => {
-//             event.preventDefault();
-//             this.props.getTeamRoster(this.formElement.current.value);
-//           }}
-//         >
-//           <input
-//             defaultValue="Real Madrid"
-//             name="team"
-//             ref={this.formElement}
-//             type="text"
-//           />
-//           <button type="submit">Submit</button>
-//         </form>
-//         {/* <section>
-//           this.props.teamRoster<br></br>{this.props.teamRoster}
-//         </section> */}
-//       end testing stuff */}
+export default connect(
+  mapStateToProps,
+  { copyDefaultTeamToCustom, getTeams, getDefaultTeamRoster }
+)(DefaultTeamContainer);

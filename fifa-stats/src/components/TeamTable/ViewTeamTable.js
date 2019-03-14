@@ -2,7 +2,7 @@ import React from 'react';
 import MaterialTable from 'material-table';
 
 import PlayerDetailPanel from './PlayerDetailPanel';
-
+import SelectCustomTeamModal from './SelectCustomTeamModal';
 
 const ViewTeamTable = props => {
   return (
