@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardLink,
+import { Button, Card, CardImg, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  
 } from 'reactstrap';
 import {getTeams} from '../../actions/statsaction';
@@ -37,12 +37,17 @@ align-items: center;
 
     createTeam = e => {
       e.preventDefault();
-      console.log(this.props)
-      // this.props.createTeam(this.state.name)
+      this.props.createTeam(this.state.name)
       // this.setState({
       //   ...this.state,
       //   name: '',
       // })
+    }
+
+    logOut = e => {
+      e.preventDefault();
+      localStorage.clear();
+      this.props.history.push('/login')
     }
     
     toggleNavbar() {
@@ -59,7 +64,8 @@ align-items: center;
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink href="/components">Log Out</NavLink>
+                <NavLink href="/components">Search Teams</NavLink>
+                <Button onClick={this.logOut}>Log Out</Button>
               </NavItem>
             </Nav>
           </Collapse>
@@ -70,7 +76,7 @@ align-items: center;
                 <CardSubtitle>User Favorite Team</CardSubtitle>
                 </CardBody>
                   {this.props.teamList.map(team => 
-                     <div>team</div>
+                     {return <div key={team.id}>{team.name}</div>}
                     )}
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
@@ -92,7 +98,8 @@ align-items: center;
 };
 
 const mapStateToProps = state => ({
-  teamList: state.teamsReducer.teamList
+  teamList: state.teamsReducer.teamList,
+  // token: state.loginReducer.token
 })
 
 export default connect(

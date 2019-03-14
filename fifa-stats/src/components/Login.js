@@ -53,6 +53,10 @@ class Login extends React.Component {
         })
     }
 
+    jump = e => {
+        e.preventDefault();
+        this.props.history.push("/")
+    }
     // userSignup = e => {
     //     e.preventDefault();
     //     this.props.signup(this.state.credentials)
@@ -116,6 +120,7 @@ class Login extends React.Component {
                             } */}
 
                              <Button onClick={this.userLogin}>Log In</Button>
+                             <Button onClick={this.jump}>Sign Up</Button>
                              {/* <Button onClick={this.userSignup}>Sign Up</Button>  */}
                             
                             
