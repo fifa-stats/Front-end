@@ -177,10 +177,10 @@ export const DELETE_PLAYER_START = 'DELETE_PLAYER_START';
 export const DELETE_PLAYER_SUCCESS = 'DELETE_PLAYER_SUCCESS';
 export const DELETE_PLAYER_FAILURE = 'DELETE_PLAYER_FAILURE';
 
-export const deletePlayer = (id1, id2) => dispatch => {
+export const deletePlayer = (teamID, playerID) => dispatch => {
     dispatch({type: DELETE_PLAYER_START});
     return axios
-       .delete(`${url}/teams/${id1}/delete/${id2}`, {
+       .delete(`${url}/teams/${teamID}/delete/${playerID}`, {
        headers:{Authorization: localStorage.getItem("token")}
        })
        .then(res=> {
@@ -190,7 +190,7 @@ export const deletePlayer = (id1, id2) => dispatch => {
        .catch(err => {
            console.log(err.message)
            dispatch({type: DELETE_PLAYER_FAILURE, payload: err.data})
-       })
+       });
 }
 
 

@@ -6,6 +6,7 @@ import {getCustomTeams} from '../../actions/statsaction';
 import{createTeam , deleteTeam} from '../../actions/customactions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const UserBox = styled.div`
 display: flex;
@@ -90,10 +91,10 @@ align-items: center;
                 </CardBody>
                   {Array.isArray(this.props.teamList) &&
 					          this.props.teamList.map(team => {
-                    return <div key={team.id}>
+                    return <Link to={`team/custom/${team.id}`} key={team.id}>
                    <div>{team.name}</div>
                     <button onClick={() => {this.deleteItem(team.id)}}>Delete Team</button>
-                    </div>;
+                    </Link>;
 						      })}
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
