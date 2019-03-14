@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, CardImg, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  
 } from 'reactstrap';
-import {getTeams} from '../../actions/statsaction';
+import {getCustomTeams} from '../../actions/statsaction';
 import{createTeam , deleteTeam} from '../../actions/customactions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
@@ -25,7 +25,7 @@ align-items: center;
       };
     }
     componentDidMount() {
-      this.props.getTeams();
+      this.props.getCustomTeams();
     }
 
     // componentDidUpdate(prevProps, prevState) {
@@ -121,6 +121,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {getTeams, createTeam, deleteTeam}
+  {getCustomTeams, createTeam, deleteTeam}
 )
 (User);

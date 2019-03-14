@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // @TODO: Create function to get players from a custom team `getCustomTeamRoster`
-import { getTeams, getCustomTeamRoster } from '../../actions/statsaction';
+import { getCustomTeams, getCustomTeamRoster } from '../../actions/statsaction';
 import { deletePlayer, deleteTeam } from '../../actions/customactions';
 import './TeamTable.css';
 import ViewTeamTable from './ViewTeamTable';
@@ -43,5 +43,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { deletePlayer, deleteTeam, getTeams, getCustomTeamRoster }
+  { deletePlayer, deleteTeam, getCustomTeams, getCustomTeamRoster }
 )(CustomTeamContainer);

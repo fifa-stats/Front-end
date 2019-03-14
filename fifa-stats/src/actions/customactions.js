@@ -125,20 +125,21 @@ export const ADD_PLAYER_START = 'ADD_PLAYER_START';
 export const ADD_PLAYER_SUCCESS = 'ADD_PLAYER_SUCCESS';
 export const ADD_PLAYER_FAILURE = 'ADD_PLAYER_FAILURE';
 
-export const addPlayer = (id) => dispatch => {
+export const addPlayer = (teamID, playerID) => dispatch => {
     dispatch({type: ADD_PLAYER_START});
     return axios
-       .post(`${url}/teams/${id}/add`, {
-       headers:{Authorization: localStorage.getItem("token")}
-       })
-       .then(res=> {
+        .post(`${url}/teams/${teamID}/add`,
+            { player_id: playerID },
+            { headers: {Authorization: localStorage.getItem("token")} }
+        )
+        .then(res=> {
            console.log(res);
            dispatch({type: ADD_PLAYER_SUCCESS, payload: res.data})
-       })
-       .catch(err => {
+        })
+        .catch(err => {
            console.log(err.message)
            dispatch({type: ADD_PLAYER_FAILURE, payload: err.data})
-       })
+        })
 }
 
 //DELETE PLAYER
