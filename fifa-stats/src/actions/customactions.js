@@ -1,6 +1,11 @@
 //import axios;
 import axios from 'axios';
-import { GET_TEAMS_SUCCESS, GET_TEAMS_FAILURE } from '../actions/statsaction';
+import { 
+    GET_CUSTOM_TEAM_ROSTER_SUCCESS,
+    GET_CUSTOM_TEAM_ROSTER_FAILURE, 
+    GET_TEAMS_SUCCESS, 
+    GET_TEAMS_FAILURE 
+} from '../actions/statsaction';
 
 // url link to api
 const url = 'https://fifa19.herokuapp.com/api';
@@ -29,7 +34,7 @@ const url = 'https://fifa19.herokuapp.com/api';
 //         })
 // };
 
-// CREATE CUSTOM TEAM 
+// CREATE NEW CUSTOM TEAM 
 
 export const CREATE_CUSTOM_TEAM_START = 'CREATE_CUSTOM_TEAM_START';
 export const CREATE_CUSTOM_TEAM_SUCCESS = 'CREATE_CUSTOM_TEAM_SUCCESS';
@@ -64,6 +69,26 @@ export const createTeam = (newTeam) => dispatch => {
     //        dispatch({type: CREATE_CUSTOM_TEAM_FAILURE, payload: err.data})
 
     //    })
+}
+
+// COPY DEFAULT TEAM TO NEW CUSTOM TEAM
+
+export const COPY_TEAM_START = 'COPY_TEAM_START';
+export const COPY_TEAM_SUCCESS = 'COPY_TEAM_SUCCESS';
+export const COPY_TEAM_FAILURE = 'COPY_TEAM_FAILURE';
+
+export const copyDefaultTeamToCustom = (defaultTeamName) => dispatch => {
+    dispatch({ type: COPY_TEAM_START});
+    return axios
+        .post(`${url}/teams/copy`,
+        {name: defaultTeamName},
+        {headers: {Authorization: localStorage.getItem("token")},
+        })
+        .then(res => {
+            console.log(res);
+            dispatch({type: COPY_TEAM_SUCCESS, payload: res.data})
+        })
+        .catch(err => dispatch({type: COPY_TEAM_FAILURE, payload: err}));
 }
 
 //DELETE CUSTOM TEAM
@@ -134,20 +159,22 @@ export const ADD_PLAYER_START = 'ADD_PLAYER_START';
 export const ADD_PLAYER_SUCCESS = 'ADD_PLAYER_SUCCESS';
 export const ADD_PLAYER_FAILURE = 'ADD_PLAYER_FAILURE';
 
-export const addPlayer = (id) => dispatch => {
+export const addPlayer = (teamID, playerID) => dispatch => {
     dispatch({type: ADD_PLAYER_START});
+    console.log('playerID: ', playerID);
     return axios
-       .post(`${url}/teams/${id}/add`, {
-       headers:{Authorization: localStorage.getItem("token")}
-       })
-       .then(res=> {
+        .post(`${url}/teams/${teamID}/add`,
+            { player_id: playerID },
+            { headers: {Authorization: localStorage.getItem("token")} }
+        )
+        .then(res=> {
            console.log(res);
            dispatch({type: ADD_PLAYER_SUCCESS, payload: res.data})
-       })
-       .catch(err => {
+        })
+        .catch(err => {
            console.log(err.message)
            dispatch({type: ADD_PLAYER_FAILURE, payload: err.data})
-       })
+        })
 }
 
 //DELETE PLAYER
@@ -156,18 +183,31 @@ export const DELETE_PLAYER_START = 'DELETE_PLAYER_START';
 export const DELETE_PLAYER_SUCCESS = 'DELETE_PLAYER_SUCCESS';
 export const DELETE_PLAYER_FAILURE = 'DELETE_PLAYER_FAILURE';
 
-export const deletePlayer = (id1, id2) => dispatch => {
+export const deletePlayer = (teamID, playerID) => dispatch => {
     dispatch({type: DELETE_PLAYER_START});
     return axios
-       .delete(`${url}/teams/${id1}/delete/${id2}`, {
+       .delete(`${url}/teams/${teamID}/delete/${playerID}`, {
        headers:{Authorization: localStorage.getItem("token")}
        })
        .then(res=> {
-           console.log(res);
-           dispatch({type: DELETE_PLAYER_SUCCESS, payload: res.data})
+           dispatch({type: DELETE_PLAYER_SUCCESS, payload: res.data});
+
+           return axios
+           .get(`${url}/teams/${teamID}`, {
+            headers:{Authorization: localStorage.getItem("token")}
+            })
+            .then(res => {
+                console.log(res);
+                dispatch({type: GET_CUSTOM_TEAM_ROSTER_SUCCESS, payload: res.data})
+            })
+            .catch(err => {
+                dispatch({type: GET_CUSTOM_TEAM_ROSTER_FAILURE, payload: err});
+            });
        })
        .catch(err => {
            console.log(err.message)
            dispatch({type: DELETE_PLAYER_FAILURE, payload: err.data})
-       })
+       });
 }
+
+

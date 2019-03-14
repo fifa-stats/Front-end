@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const LogPage = styled.div`
 width: 100%;
-height: 400px;
+height: 550px;
 background: 
   url('https://i.imgur.com/aJiApGC.jpg')
     no-repeat fixed center;
@@ -71,7 +71,7 @@ class Signup extends React.Component {
     render() {
         return (
             <LogPage>
-                <Fifaheader>FIFA STATS </Fifaheader>
+                {/* <Fifaheader>FIFA STATS </Fifaheader> */}
 
                 <div className="login-img">
                      {/* for a picture */}
