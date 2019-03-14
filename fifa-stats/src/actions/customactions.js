@@ -1,5 +1,6 @@
 //import axios;
 import axios from 'axios';
+import { GET_TEAMS_SUCCESS, GET_TEAMS_FAILURE } from '../actions/statsaction';
 
 // url link to api
 const url = 'https://fifa19.herokuapp.com/api';
@@ -101,21 +102,49 @@ export const DELETE_CUSTOM_TEAM_FAILURE = 'DELETE_CUSTOME_TEAM_FAILURE';
 
 
 
-export const deleteTeam = (id) => dispatch => {
-    dispatch({type: DELETE_CUSTOM_TEAM_START});
-    return axios
-       .delete(`${url}/teams/${id}`, {
-       headers:{Authorization: localStorage.getItem("token")}
-       })
-       .then(res=> {
-           console.log(res.data);
-           dispatch({type: DELETE_CUSTOM_TEAM_SUCCESS, payload: res.data})
-       })
-       .catch(err => {
-           console.log(err.message)
-           dispatch({type: DELETE_CUSTOM_TEAM_FAILURE, payload: err.data})
-       })
-}
+// export const deleteTeam = (id) => dispatch => {
+//     dispatch({type: DELETE_CUSTOM_TEAM_START});
+//     return axios
+//        .delete(`${url}/teams/${id}`, {
+//        headers:{Authorization: localStorage.getItem("token")}
+//        })
+//        .then(res=> {
+//            console.log(res.data);
+//            dispatch({type: DELETE_CUSTOM_TEAM_SUCCESS, payload: res.data})
+//        })
+//        .catch(err => {
+//            console.log(err.message)
+//            dispatch({type: DELETE_CUSTOM_TEAM_FAILURE, payload: err.data})
+//        })
+// }
+export const deleteTeam = id => dispatch => {
+    dispatch({ type: DELETE_CUSTOM_TEAM_START });
+
+    axios
+        .delete(`${url}/teams/${id}`, {
+            headers: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(res);
+            dispatch({ type: DELETE_CUSTOM_TEAM_SUCCESS, payload: id });
+
+            return axios
+                .get(`${url}/teams`, {
+                    headers: { Authorization: localStorage.getItem('token') }
+                })
+                .then(res => {
+                    console.log(res);
+                    dispatch({ type: GET_TEAMS_SUCCESS, payload: res.data });
+                })
+                .catch(err => {
+                    dispatch({ type: GET_TEAMS_FAILURE, payload: err });
+                });
+        })
+        .catch(error => {
+            console.log(error.message);
+            dispatch({ type: DELETE_CUSTOM_TEAM_FAILURE, payload: error.data });
+        });
+};
 
 //CUSTOM Players literals and actions
 
