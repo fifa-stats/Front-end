@@ -17,13 +17,32 @@ class CustomTeamContainer extends React.Component {
 
     this.hedRef = React.createRef();
     this.editHedRef = React.createRef();
+    this.formHedRef = React.createRef();
   };
 
   componentDidMount() {
     this.props.getCustomTeamRoster(this.props.match.params.teamID);
   };
 
-  
+  showEditHed = () => {
+    this.editHedRef.current.defaultValue = this.hedRef.current.textContent;
+    this.hedRef.current.hidden = true;
+    this.editHedRef.current.hidden = false;
+    this.formHedRef.current.hidden = false;
+  };
+  editHed = () => {
+    this.hedRef.current.hidden = false;
+    this.editHedRef.current.hidden = true;
+    this.formHedRef.current.hidden = true;
+    if (this.editHedRef.current.textContent === this.hedRef.current.textContent) {
+      return;
+    }
+    // need to hook up redux action
+    // this.props.editCustomTeamName(
+    //   this.props.match.params.teamID, 
+    //   this.editHedRef.current.textContent
+    // );
+  };
 
   render() {
     return (
@@ -32,21 +51,21 @@ class CustomTeamContainer extends React.Component {
         <div className="team-summary-container">
           <div className="team-summary-header">
             <div className="team-name" onClick={event => {
-                  event.preventDefault();
-                  console.log(this.hedRef.current);
-                  this.editHedRef.current.defaultValue = this.hedRef.current.textContent;
-                  this.hedRef.current.hidden = true;
-                  this.editHedRef.current.hidden = false;
-              }}
-            >
+              event.preventDefault();
+              if (Boolean(this.editHedRef.current.hidden === true)) {
+                this.showEditHed();
+              }
+              return this.editHed(event);
+            }}>
               <h1 ref={this.hedRef}>My Custom Team – {this.props.match.params.teamID}</h1>
                 <IconButton><Icon>edit</Icon></IconButton>
                 <Typography variant="srOnly">Change Team Name</Typography>
-              <input 
-                // defaultValue={this.hedRef.current.textContent}
-                hidden
-                ref={this.editHedRef}
-              ></input>
+              <form hidden onSubmit={this.editHed} ref={this.formHedRef}>
+                <input 
+                  hidden
+                  ref={this.editHedRef}
+                ></input>
+              </form>
             </div>
             
             <button className="team-button" onClick={() => {
