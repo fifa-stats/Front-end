@@ -1,32 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCustomTeams, getDefaultTeamRoster } from '../../actions/statsaction';
-import { copyDefaultTeamToCustom } from '../../actions/customactions';
+import { getAnalysis, getCustomTeams, getDefaultTeamRoster } from '../../actions/statsaction';
 import './TeamTable.css';
+import TeamHeader from './TeamHeader';
 import ViewTeamTable from './ViewTeamTable';
 
 
 class DefaultTeamContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.teamName = this.props.match.params.teamName;
+    /** 
+     * Check if the `customTeamsList` is longer than 0, otherwise fetch it.
+     * NOTE: `checkCustomTeamsList()` is an Immediately Invoked Function 
+     */
     this.props.customTeamsList.length > 0
         ? console.log('checkCustomTeamsList null', this.props.customTeamsList.length)
         : this.props.getCustomTeams();
   };
 
   componentDidMount() {
-    this.props.getDefaultTeamRoster(this.props.match.params.teamName);
-    /** 
-     * Check if the `customTeamsList` is longer than 0, otherwise fetch it.
-     * NOTE: `checkCustomTeamsList()` is an Immediately Invoked Function 
-     */
-    // (function checkCustomTeamsList() {
-    //   console.log('checkCustomTeamsList null', () => this.props.customTeamsList.length);
-    //   return () => this.props.customTeamsList.length > 0
-    //     ? console.log('checkCustomTeamsList null', this.props.customTeamsList.length)
-    //     : () => this.props.getTeams();
-    // })();
+    this.props.getDefaultTeamRoster(this.teamName);
   };
 
   componentDidUpdate(prevProps) {
@@ -45,27 +40,28 @@ class DefaultTeamContainer extends React.Component {
        )
      };
     };
+
+    if (this.props.teamRoster.length !== 0) {
+      console.log('componentDidUpdate – bool, length: ', this.props.teamRoster.length !== 0, this.props.teamRoster.length);
+      if (prevProps.teamRoster !== this.props.teamRoster) {
+        this.props.getAnalysis(this.props.teamRoster);
+      };
+    };
   };
 
   render() {
     return (
       <>
-        {/* TODO: Create `TeamHeader` component to house stats and buttons */}
-        <div className="team-summary-container">
-          <div className="team-summary-header">
-            <h1>{this.props.match.params.teamName}</h1>
-            <button className="team-button" onClick={() => 
-              this.props.copyDefaultTeamToCustom(
-                this.props.match.params.teamName)}
-            >
-              Copy {this.props.match.params.teamName}
-            </button>
-          </div>
-        </div>
+        <TeamHeader
+          // copyDefaultTeamToCustom={this.props.copyDefaultTeamToCustom}
+          analysis={this.props.analysis}
+          teamRoster={this.props.teamRoster}
+          teamName={this.teamName}
+        />
         <ViewTeamTable
           customTeamsList={this.props.customTeamsList}
           roster={this.props.teamRoster}
-          teamName={this.props.match.params.teamName}
+          teamName={this.teamName}
           teamType={'default'}
         />
       </>
@@ -74,8 +70,9 @@ class DefaultTeamContainer extends React.Component {
 };
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps customTeamsList: ', state.teamsReducer.teamList);
+  console.log('mapStateToProps analysis: ', state.teamRosterReducer.analysis);
   return {
+    analysis: state.teamRosterReducer.analysis,
     customTeamsList: state.teamsReducer.teamList,
     teamRoster: state.teamRosterReducer.teamRoster
   }
@@ -83,5 +80,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { copyDefaultTeamToCustom, getCustomTeams, getDefaultTeamRoster }
+  { getAnalysis, getCustomTeams, getDefaultTeamRoster }
 )(DefaultTeamContainer);

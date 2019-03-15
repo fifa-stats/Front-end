@@ -16,6 +16,23 @@ export const GET_TEAM_ROSTER_FAILURE = 'GET_TEAM_ROSTER_FAILURE';
 
 const url = 'https://fifa19.herokuapp.com/api';
 
+export const GET_ANALYSIS_START = 'GET_ANALYSIS_START';
+export const GET_ANALYSIS_SUCCESS = 'GET_ANALYSIS_SUCCESS';
+export const GET_ANALYSIS_FAILURE = 'GET_ANALYSIS_FAILURE';
+
+export const getAnalysis = teamRoster => dispatch => {
+    console.log('teamRoster: ', teamRoster);
+    dispatch({type: GET_ANALYSIS_START});
+    axios
+        .post(`${url}/teams/suggestion`,
+        {players: teamRoster},
+        {headers:{Authorization: localStorage.getItem("token")}}
+        )
+        .then(res => {
+            dispatch({type: GET_ANALYSIS_SUCCESS, payload: res.data})
+        })
+        .catch(err => dispatch({type: GET_ANALYSIS_FAILURE, payload: err}));
+};
 
 // return stats and props of a player given the `playerID`
 // @TODO: There isn't an endpoint for this yet

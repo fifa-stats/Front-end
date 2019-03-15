@@ -1,4 +1,7 @@
 import {
+  GET_ANALYSIS_START,
+  GET_ANALYSIS_SUCCESS,
+  GET_ANALYSIS_FAILURE,
   GET_CUSTOM_TEAM_ROSTER_START,
   GET_CUSTOM_TEAM_ROSTER_SUCCESS,
   GET_CUSTOM_TEAM_ROSTER_FAILURE,
@@ -16,13 +19,32 @@ import {
 } from '../actions/customactions';
 
 const initialState = {
+  analysis: [],
   error: null,
+  gettingAnalysis: false,
   gettingRoster: false,
   teamRoster: [],
 }
 
 const teamRosterReducer = (state = initialState, action) => {
   switch(action.type) {
+    case GET_ANALYSIS_START:
+      return {
+        ...state,
+        gettingAnalysis: true
+      };
+    case GET_ANALYSIS_SUCCESS:
+      return {
+        ...state,
+        analysis: action.payload,
+        gettingAnalysis: false,
+      };
+    case GET_ANALYSIS_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        gettingAnalysis: false
+      };
     case ADD_PLAYER_START: 
       return {
         ...state,

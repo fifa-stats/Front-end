@@ -1,0 +1,49 @@
+
+td {
+  text-align: right;
+}
+
+.bold-cell {
+  font-weight: bold;
+  padding: 0.25rem 2rem 0 0.25rem;
+  text-align: left;
+}
+
+.player-card {
+  background: white;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 3px 1px -2px rgba(0,0,0,0.12);
+  display: inline-block;
+  /* margin: 1rem; */
+  padding: 1.5rem 1rem 1.5rem 1.5rem;
+}
+
+/* .player-card:first-of-type {
+  margin-left: 0;
+} */
+
+.player-name {
+  text-decoration: underline;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0.25rem;
+}
+
+.player-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* margin-top: 1rem; */
+}
+
+.player-card-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1rem 0;
+  max-width: 48%;
+  min-width: 34rem;
+}
+
+.player-card-container > h3 {
+  width: 100%;
+}
