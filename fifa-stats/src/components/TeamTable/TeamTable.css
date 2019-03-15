@@ -9,15 +9,28 @@
   background: rgba(0, 0, 0, 0.15)
 }
 
+.team-name {
+  cursor: pointer;
+  display: flex;
+}
+
 .team-summary-container {
   grid-column: 2 / -2;
   margin: 2rem 0;
 }
 
 .team-summary-header {
-  align-items: flex-end;
+  align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+.team-summary-header > h1 {
+  padding-top: 0.5rem;
+}
+
+.team-summary-header > h1 > button {
+  padding: 12px 12px 16px 12px;
 }
 
 .team-table {
