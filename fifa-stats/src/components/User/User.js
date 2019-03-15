@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Card, CardBody, CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  
+import { Button, Card, CardImg, CardText, CardBody, CardLink,
+  CardTitle, CardSubtitle, Collapse, 
 } from 'reactstrap';
-import {getTeams} from '../../actions/statsaction';
+import {getCustomTeams} from '../../actions/statsaction';
 import{createTeam , deleteTeam} from '../../actions/customactions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
@@ -18,14 +19,14 @@ align-items: center;
     constructor(props) {
       super(props);
   
-      this.toggleNavbar = this.toggleNavbar.bind(this);
+      // this.toggleNavbar = this.toggleNavbar.bind(this);
       this.state = {
         collapsed: true,
         name: ''
       };
     }
     componentDidMount() {
-      this.props.getTeams();
+      this.props.getCustomTeams();
     }
 
     // componentDidUpdate(prevProps, prevState) {
@@ -62,38 +63,23 @@ align-items: center;
       localStorage.clear();
       this.props.history.push('/login')
     }
-    
-    toggleNavbar() {
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-    }
+
     render() {
         return (
         <UserBox>
-        <Navbar color="faded" light>
-          <NavbarBrand href="/" className="mr-auto">FIFA STATS</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse isOpen={!this.state.collapsed} navbar>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href="/components">Search Teams</NavLink>
-                <Button onClick={this.logOut}>Log Out</Button>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
             <Card>
                 <CardBody>
-                <CardTitle>User title</CardTitle>
+                <CardTitle>User Name</CardTitle>
                 <CardSubtitle>User Favorite Team</CardSubtitle>
                 </CardBody>
                   {Array.isArray(this.props.teamList) &&
 					          this.props.teamList.map(team => {
-                    return <Link key={team.id}>
+                    return <div>
+                    <Link to={`team/custom/${team.id}`} key={team.id}>
                    <div>{team.name}</div>
+                    </Link>
                     <button onClick={() => {this.deleteItem(team.id)}}>Delete Team</button>
-                    </Link>;
+                    </div>
 						      })}
                 <CardBody>
                 <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
@@ -121,6 +107,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {getTeams, createTeam, deleteTeam}
+  {getCustomTeams, createTeam, deleteTeam}
 )
 (User);

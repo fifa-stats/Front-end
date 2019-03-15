@@ -33,7 +33,7 @@ export const getPlayerData = (playerID) => dispatch => {
 };
 
 // return list of teams for current user
-export const getTeams = () => dispatch => {
+export const getCustomTeams = () => dispatch => {
     dispatch({type: GET_TEAMS_START});
     axios
         .get(`${url}/teams`, {
@@ -48,8 +48,8 @@ export const getTeams = () => dispatch => {
         });
 };
 
-// retrieve list of Player IDs for a given `teamID`
-export const getTeamRoster = (teamName) => dispatch => {
+// retrieve list of Player IDs for a given default `teamName`
+export const getDefaultTeamRoster = (teamName) => dispatch => {
     dispatch({type: GET_TEAM_ROSTER_START});
     // console.log('statsaction', teamName);
     axios
@@ -59,5 +59,27 @@ export const getTeamRoster = (teamName) => dispatch => {
         })
         .catch(err => {
             dispatch({type: GET_TEAM_ROSTER_FAILURE, payload: err});
+        });
+};
+
+
+// retrieve list of Player IDs for a given custom `teamID`
+export const GET_CUSTOM_TEAM_ROSTER_START = 'GET_CUSTOM_TEAM_ROSTER_START';
+export const GET_CUSTOM_TEAM_ROSTER_SUCCESS = 'GET_CUSTOM_TEAM_ROSTER_SUCCESS';
+export const GET_CUSTOM_TEAM_ROSTER_FAILURE = 'GET_CUSTOM_TEAM_ROSTER_FAILURE';
+
+export const getCustomTeamRoster = (teamID) => dispatch => {
+    dispatch({type: GET_CUSTOM_TEAM_ROSTER_START});
+    // console.log('statsaction', teamName);
+    axios
+        .get(`${url}/teams/${teamID}`, {
+            headers:{Authorization: localStorage.getItem("token")}
+        })
+        .then(res => {
+            console.log(res);
+            dispatch({type: GET_CUSTOM_TEAM_ROSTER_SUCCESS, payload: res.data})
+        })
+        .catch(err => {
+            dispatch({type: GET_CUSTOM_TEAM_ROSTER_FAILURE, payload: err});
         });
 };

@@ -8,7 +8,7 @@ const PlayerDetailPanel = props => {
         fontSize: 60,
         textAlign: 'center',
         color: 'white',
-        backgroundColor: 'blue'
+        backgroundColor: 'rgba(0,0,0,0.1)'
       }}
     >
       {props.rowData.Name}

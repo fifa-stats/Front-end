@@ -1,0 +1,8 @@
+[build]
+base = "fifa-stats/"
+publish = "fifa-stats/build/"
+command = "yarn build"
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
