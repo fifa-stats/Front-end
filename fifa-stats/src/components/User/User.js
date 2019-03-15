@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, CardImg, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle, Collapse, 
+  CardTitle, CardSubtitle, Collapse
 } from 'reactstrap';
 import {getCustomTeams} from '../../actions/statsaction';
 import{createTeam , deleteTeam} from '../../actions/customactions';
@@ -11,8 +11,49 @@ import {Link} from 'react-router-dom';
 const UserBox = styled.div`
 display: flex;
 flex-direction: column;
+align-items: center;
+flex-flow: wrap;
+justify-content: space-evenly;
+margin: 10px 5%;
+border: 1px solid #BDBA79;
+border-radius: 40px;
+background: gray;
+`
+// const InnerBox = styled.div`
+// display:flex;
+// flex-direction: row;
+// align-items: center;
+// flex-flow: nowrap;
+// justify-content: space-evenly;
+// border: 1px solid #BDBA79;
+// border-radius: 40px;
+// background: black;
+// `
+const TeamBox = styled.div`
+display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;
+border: 1px solid gray;
+width: 35%;
+height: 75px;
+margin: 10px;
+border-radius: 25px
+text-decoration: none;
+background: 
+  url('https://i.imgur.com/aJiApGC.jpg')
+`
+const TeamCard = styled.div`
+text-decoration: none;
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+justify-content: space-evenly;
+align-items: center;
+`
+
+const Cusbtn = styled(Button)`
+background: orange;
 `
 
  class User extends React.Component {
@@ -67,22 +108,24 @@ align-items: center;
     render() {
         return (
         <UserBox>
-            <Card>
-                <CardBody>
-                <CardTitle>User Name</CardTitle>
-                <CardSubtitle>User Favorite Team</CardSubtitle>
-                </CardBody>
+            <div>
+                <div>
+                <h2>User Name</h2>
+                <h3>User Custom Teams</h3>
+                </div>
+                <TeamCard>
                   {Array.isArray(this.props.teamList) &&
 					          this.props.teamList.map(team => {
-                    return <div>
+                    return <TeamBox>
                     <Link to={`team/custom/${team.id}`} key={team.id}>
                    <div>{team.name}</div>
                     </Link>
-                    <button onClick={() => {this.deleteItem(team.id)}}>Delete Team</button>
-                    </div>
-						      })}
-                <CardBody>
-                <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+                    <Cusbtn onClick={() => {this.deleteItem(team.id)}}>Delete Team</Cusbtn>
+                    </TeamBox>
+                  })}
+                  </TeamCard>
+                <div>
+                <div>Some quick example text to build on the card title and make up the bulk of the card's content.</div>
                 <form>
                   <input
                   value={this.state.name}
@@ -90,11 +133,11 @@ align-items: center;
                   onChange={this.handleChanges}
                   placeholder="Custom Team Name"
                   />
-                 <button onClick={this.createTeam}>Create Team</button>
+                 <Cusbtn onClick={this.createTeam}>Create Team</Cusbtn>
                 </form>
                 {/* <CardLink href="#">My Teams</CardLink> */}
-                </CardBody>
-            </Card>
+                </div>
+            </div>
             </UserBox>
         );
     }

@@ -7,11 +7,7 @@ import styled from 'styled-components';
 
 const LogPage = styled.div`
 width: 100%;
-<<<<<<< HEAD
-height: 400px;
-=======
 height: 550px;
->>>>>>> a6a86fdac553a2eb111ffc484769de598ef1385f
 background: 
   url('https://i.imgur.com/aJiApGC.jpg')
     no-repeat fixed center;
