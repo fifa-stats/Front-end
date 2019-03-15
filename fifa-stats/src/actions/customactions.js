@@ -1,6 +1,11 @@
 //import axios;
 import axios from 'axios';
-import { GET_TEAMS_SUCCESS, GET_TEAMS_FAILURE } from '../actions/statsaction';
+import { 
+    GET_CUSTOM_TEAM_ROSTER_SUCCESS,
+    GET_CUSTOM_TEAM_ROSTER_FAILURE, 
+    GET_TEAMS_SUCCESS, 
+    GET_TEAMS_FAILURE 
+} from '../actions/statsaction';
 
 // url link to api
 const url = 'https://fifa19.herokuapp.com/api';
@@ -156,6 +161,7 @@ export const ADD_PLAYER_FAILURE = 'ADD_PLAYER_FAILURE';
 
 export const addPlayer = (teamID, playerID) => dispatch => {
     dispatch({type: ADD_PLAYER_START});
+    console.log('playerID: ', playerID);
     return axios
         .post(`${url}/teams/${teamID}/add`,
             { player_id: playerID },
@@ -184,8 +190,19 @@ export const deletePlayer = (teamID, playerID) => dispatch => {
        headers:{Authorization: localStorage.getItem("token")}
        })
        .then(res=> {
-           console.log(res);
-           dispatch({type: DELETE_PLAYER_SUCCESS, payload: res.data})
+           dispatch({type: DELETE_PLAYER_SUCCESS, payload: res.data});
+
+           return axios
+           .get(`${url}/teams/${teamID}`, {
+            headers:{Authorization: localStorage.getItem("token")}
+            })
+            .then(res => {
+                console.log(res);
+                dispatch({type: GET_CUSTOM_TEAM_ROSTER_SUCCESS, payload: res.data})
+            })
+            .catch(err => {
+                dispatch({type: GET_CUSTOM_TEAM_ROSTER_FAILURE, payload: err});
+            });
        })
        .catch(err => {
            console.log(err.message)

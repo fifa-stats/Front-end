@@ -11,6 +11,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem } from 'reactstrap';
+import {connect} from 'react-redux';
 
  class NavBar extends React.Component {
         constructor(props) {
@@ -18,7 +19,8 @@ import {
       
           this.toggle = this.toggle.bind(this);
           this.state = {
-            isOpen: false
+            isOpen: false,
+            log: false,
           };
         }
         toggle() {
@@ -29,16 +31,18 @@ import {
         render() {
           return (
             <header>
+              {this.props.loggedIn ? !this.state.log : null }
               <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">reactstrap</NavbarBrand>
+                <NavbarBrand href="/user">FIFA STATS</NavbarBrand>
+               {this.state.log ? <div>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                   <Nav className="ml-auto" navbar>
                     <NavItem>
-                      <NavLink href="/components/">Components</NavLink>
+                      <NavLink href="#">Default Teams</NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                      <NavLink href="#">Player List</NavLink>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav caret>
@@ -46,23 +50,33 @@ import {
                       </DropdownToggle>
                       <DropdownMenu right>
                         <DropdownItem>
-                          Option 1
+                          Messages
                         </DropdownItem>
                         <DropdownItem>
-                          Option 2
+                          Settings
                         </DropdownItem>
                         <DropdownItem divider />
-                        <DropdownItem>
-                          Reset
-                        </DropdownItem>
+                        <button>
+                          Log Out
+                        </button>
                       </DropdownMenu>
                     </UncontrolledDropdown>
                   </Nav>
                 </Collapse>
+               </div> : null }
               </Navbar>
-            </header>
+              
+            </header> 
           );
         }
       }
 
-export default NavBar;
+const mapStateToProps = state => ({
+        loggedIn: state.loginReducer.loggedIn,
+        // token: state.loginReducer.token
+      })
+
+export default connect(
+  mapStateToProps,
+  {}
+)(NavBar);

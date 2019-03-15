@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, CardImg, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink  
+  CardTitle, CardSubtitle, Collapse, 
 } from 'reactstrap';
 import {getCustomTeams} from '../../actions/statsaction';
 import{createTeam , deleteTeam} from '../../actions/customactions';
@@ -19,7 +19,7 @@ align-items: center;
     constructor(props) {
       super(props);
   
-      this.toggleNavbar = this.toggleNavbar.bind(this);
+      // this.toggleNavbar = this.toggleNavbar.bind(this);
       this.state = {
         collapsed: true,
         name: ''
@@ -63,30 +63,13 @@ align-items: center;
       localStorage.clear();
       this.props.history.push('/login')
     }
-    
-    toggleNavbar() {
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-    }
+
     render() {
         return (
         <UserBox>
-        <Navbar color="faded" light>
-          <NavbarBrand href="/" className="mr-auto">FIFA STATS</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse isOpen={!this.state.collapsed} navbar>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href="/components">Search Teams</NavLink>
-                <Button onClick={this.logOut}>Log Out</Button>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
             <Card>
                 <CardBody>
-                <CardTitle>User title</CardTitle>
+                <CardTitle>User Name</CardTitle>
                 <CardSubtitle>User Favorite Team</CardSubtitle>
                 </CardBody>
                   {Array.isArray(this.props.teamList) &&
@@ -94,7 +77,7 @@ align-items: center;
                     return <div>
                     <Link to={`team/custom/${team.id}`} key={team.id}>
                    <div>{team.name}</div>
-                    </Link>;
+                    </Link>
                     <button onClick={() => {this.deleteItem(team.id)}}>Delete Team</button>
                     </div>
 						      })}
