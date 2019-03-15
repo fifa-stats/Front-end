@@ -54,7 +54,7 @@ const teamsReducer = (state = initialState, action) => {
       return {
         ...state,
         copyingTeam: false,
-        teamList: [...state.teamList, action.payload.id]
+        teamList: [...state.teamList, action.payload]
       };
     case COPY_TEAM_FAILURE:
       return {
