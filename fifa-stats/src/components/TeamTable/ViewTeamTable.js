@@ -45,7 +45,10 @@ const ViewTeamTable = ({ dispatch, ...props }) => {
             <h3>Add Player to Custom Team</h3>
         </header>
         <div className="modal-body">
-          <p>To which custom team would you like to add {modalPlayer.name}?</p>
+          { props.customTeamsList.length
+            ? <p>To which custom team would you like to add {modalPlayer.name}?</p>
+            : <p>You must create a custom team before you can add players to it!</p>
+          }
           {props.customTeamsList.map(team => {
             return <button
               key={team.id}
@@ -87,9 +90,9 @@ const ViewTeamTable = ({ dispatch, ...props }) => {
           },
           { title: 'Name', field: 'Name', type: 'string', cellStyle: {padding: '0 10px'} },
           { title: 'Overall Rating', field: 'Overall', type: 'numeric' },
-          { title: 'Market Value', field: 'Value', type: 'currency', currencySetting: { currencyCode: 'EUR' } },
+          { title: 'Market Value', field: 'Value', type: 'currency', currencySetting: { currencyCode: 'EUR' }, cellStyle: {textAlign: 'right', flexDirection: 'row-reverse'} },
           { title: 'Wage', field: 'Wage', currencySetting: { currencyCode: 'EUR' }, type: 'currency' },
-          { title: 'Performance Ratio', field: 'performanceRatio', type: 'numeric' }
+          { title: 'Over Valued Ratio', field: 'OvervalueRatio', type: 'numeric' }
         ]}
         data={props.roster}
         title={`${props.teamName} – Full Roster`}

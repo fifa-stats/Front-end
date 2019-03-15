@@ -51,12 +51,17 @@ class DefaultTeamContainer extends React.Component {
     return (
       <>
         {/* TODO: Create `TeamHeader` component to house stats and buttons */}
-        <button onClick={() => 
-          this.props.copyDefaultTeamToCustom(
-            this.props.match.params.teamName)}
-        >
-          Create Custom Team from {this.props.match.params.teamName}
-        </button>
+        <div className="team-summary-container">
+          <div className="team-summary-header">
+            <h1>{this.props.match.params.teamName}</h1>
+            <button className="team-button" onClick={() => 
+              this.props.copyDefaultTeamToCustom(
+                this.props.match.params.teamName)}
+            >
+              Copy {this.props.match.params.teamName}
+            </button>
+          </div>
+        </div>
         <ViewTeamTable
           customTeamsList={this.props.customTeamsList}
           roster={this.props.teamRoster}

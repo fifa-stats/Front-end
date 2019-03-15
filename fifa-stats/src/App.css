@@ -14,3 +14,25 @@ h4 {
   font-size: 1.15rem;
   font-weight: bold;
 }
+
+.app {
+  background: rgba(0,0,0,0.05);
+  display: grid;
+  grid-template-columns: minmax(1rem, 1fr) repeat(12, minmax(1rem, 6rem)) minmax(1rem, 1fr);
+}
+
+.app > div {
+  grid-column: 2 / -2;
+}
+
+.app > div.sc-bxivhb {
+  grid-column: 1 / -1;
+}
+
+header {
+  grid-column: 1 / -1;
+}
+
+.team-table {
+  grid-column: 2 / -2;
+}
