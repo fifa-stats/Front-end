@@ -12,6 +12,13 @@ import {
     DropdownMenu,
     DropdownItem } from 'reactstrap';
 import {connect} from 'react-redux';
+import styled from 'styled-components';
+
+const Fifabar = styled(Navbar)`
+
+color: blue;
+
+`
 
  class NavBar extends React.Component {
         constructor(props) {
@@ -31,12 +38,13 @@ import {connect} from 'react-redux';
         render() {
           return (
             <header>
-              {this.props.loggedIn ? !this.state.log : null }
-              <Navbar color="light" light expand="md">
+              {/* {this.props.loggedIn ? !this.state.log : null } */}
+              <Fifabar  color="light" light expand="md">
                 <NavbarBrand href="/user">FIFA STATS</NavbarBrand>
-               {this.state.log ? <div>
                 <NavbarToggler onClick={this.toggle} />
+               
                 <Collapse isOpen={this.state.isOpen} navbar>
+                {this.props.token ? <div>
                   <Nav className="ml-auto" navbar>
                     <NavItem>
                       <NavLink href="#">Default Teams</NavLink>
@@ -62,9 +70,9 @@ import {connect} from 'react-redux';
                       </DropdownMenu>
                     </UncontrolledDropdown>
                   </Nav>
+                  </div> : null }
                 </Collapse>
-               </div> : null }
-              </Navbar>
+              </Fifabar>
               
             </header> 
           );
@@ -73,7 +81,7 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = state => ({
         loggedIn: state.loginReducer.loggedIn,
-        // token: state.loginReducer.token
+        token: state.loginReducer.token
       })
 
 export default connect(
