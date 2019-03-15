@@ -1,3 +1,26 @@
+.team-button {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  /* margin: 1rem; */
+  padding: 0.25rem 0.75rem;
+}
+
+.team-button:hover {
+  background: rgba(0, 0, 0, 0.15)
+}
+
+.team-summary-container {
+  grid-column: 2 / -2;
+  margin: 2rem 0;
+}
+
+.team-summary-header {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+}
+
 .team-table {
-  max-width: 1000px;
+  grid-column: 2 / -2;
+  margin-bottom: 2rem;
 }
