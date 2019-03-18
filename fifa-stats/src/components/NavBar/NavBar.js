@@ -23,11 +23,11 @@ color: blue;
  class NavBar extends React.Component {
         constructor(props) {
           super(props);
-      
           this.toggle = this.toggle.bind(this);
           this.state = {
             isOpen: false,
             log: false,
+            search: '',
           };
         }
         toggle() {
@@ -35,6 +35,14 @@ color: blue;
             isOpen: !this.state.isOpen
           });
         }
+        onChange = (e, prevState) => {
+          e.preventDefault();
+          this.setState({
+            ...prevState,
+            [e.target.name]: e.target.value,
+          })
+        }
+
         render() {
           return (
             <header>
@@ -42,7 +50,14 @@ color: blue;
               <Fifabar  color="light" light expand="md">
                 <NavbarBrand href="/user">FIFA STATS</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
-               
+                <form type="text">
+                        <input 
+                        type="text"
+                        value={this.state.search}
+                        name="search"
+                        onChange={this.onChange}
+                        />
+                      </form>
                 <Collapse isOpen={this.state.isOpen} navbar>
                 {this.props.token ? <div>
                   <Nav className="ml-auto" navbar>
